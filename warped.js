@@ -27,6 +27,7 @@ function randomize_lines(){
 
     i=settings[1]-1;/*number of lines*/
     do{
+    	/*create line with start_x, start_y, and random rgb color*/
         lines.push([random_number(width),random_number(height),random_number(255),random_number(255),random_number(255)])
     }while(i--);
 
@@ -45,7 +46,8 @@ function resize(){
     }
 }
 function save(){
-    /*randomize key*/
+	/*save settings into localStorage if differ from default*/
+
     if(get('randomize-key').value=='R'){
         ls.removeItem('warped2');
         settings[2]='R'
@@ -79,7 +81,7 @@ function save(){
 }
 function setmode(newmode){
     mode=newmode;
-    if(newmode>0){
+    if(mode>0){
         save();
 
         get('page').innerHTML='<canvas id=canvas></canvas>';
@@ -97,7 +99,7 @@ function setmode(newmode){
 var buffer=canvas=height=i=j=mode=mouse_x=mouse_y=x=width=y=0,
 ls=window.localStorage,
 settings=[
-    ls.getItem('warped0')===null?1:parseInt(ls.getItem('warped0')),/*audio volume*/
+    ls.getItem('warped0')===null?1:parseInt(ls.getItem('warped0')),/*line width*/
     ls.getItem('warped1')===null?100:parseInt(ls.getItem('warped1')),/*number of lines*/
     ls.getItem('warped2')===null?'R':ls.getItem('warped2'),/*randomize key*/
     ls.getItem('warped3')===null,/*clear?*/
@@ -114,7 +116,7 @@ window.onkeydown=function(e){
         i=i.charCode?i.charCode:i.keyCode;
         if(String.fromCharCode(i)===settings[2]){/*randomize key*/
             randomize_lines()
-        }else if(i==27){
+        }else if(i==27){/*ESC*/
             setmode(0)
         }
     }
