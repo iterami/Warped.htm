@@ -39,9 +39,11 @@ function draw(){
         0
     )
 }
+
 function get(i){
     return document.getElementById(i)
 }
+
 function randomize_lines(){
     lines = [];
 
@@ -59,9 +61,11 @@ function randomize_lines(){
 
     draw()
 }
+
 function random_number(i){
     return Math.floor(Math.random() * i)
 }
+
 function resize(){
     if(mode > 0){
         width = get('buffer').width = get('canvas').width = window.innerWidth;
@@ -71,6 +75,7 @@ function resize(){
         randomize_lines()
     }
 }
+
 function save(){
     /*save settings into localStorage if differ from default*/
 
@@ -108,6 +113,7 @@ function save(){
         }
     }while(i--)
 }
+
 function setmode(newmode){
     mode = newmode;
     if(mode > 0){
@@ -125,6 +131,7 @@ function setmode(newmode){
         get('page').innerHTML = '<div style="border-right:8px solid #222;display:inline-block;text-align:left;vertical-align:top"><div class=c><b>Warped</b></div><hr><div class=c style=color:#f00>SEIZURE WARNING!<br>FLASHING LIGHTS!</div><hr><div class=c><a onclick=setmode(1)>Lines</a></div><hr><div class=c><input id=number-of-lines size=1 type=text value=' + settings[1] + '>Lines<br><input id=line-width size=1 type=text value=' + settings[0] + '>Line Width<br><label><input ' + (settings[4] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label></div></div><div style=display:inline-block;text-align:left><div class=c><input disabled size=3 style=border:0 type=text value=ESC>Main Menu<br><input id=randomize-key maxlength=1 size=3 type=text value=' + settings[2] + '>Randomize</div><hr><div class=c><label><input ' + (settings[3] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'line-width\').value=get(\'mouse-lock\').checked=1;get(\'randomize-key\').value=\'R\';get(\'number-of-lines\').value=100;save();setmode(0)}">Reset Settings</a></div></div>'
     }
 }
+
 var buffer = 0;
 var canvas = 0;
 var height = 0;
@@ -160,6 +167,7 @@ window.onkeydown = function(e){
         }
     }
 };
+
 window.onmousedown = function(e){
     if(mode > 0){
         e.preventDefault();
@@ -170,6 +178,7 @@ window.onmousedown = function(e){
         }
     }
 };
+
 window.onmousemove = function(e){
     if(mode > 0 && settings[4]){/*mouse locked*/
         mouse_x = e.pageX;
