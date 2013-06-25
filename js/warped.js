@@ -21,7 +21,9 @@ function draw(){
             mouse_y
         );
         buffer.closePath();
-        buffer.strokeStyle = 'rgb(' + lines[i][2] + ',' + lines[i][3] + ',' + lines[i][4] + ')';
+        buffer.strokeStyle = 'rgb(' + lines[i][2] + ', '
+                                    + lines[i][3] + ', '
+                                    + lines[i][4] + ')';
         buffer.stroke();
     }while(i--);
 
@@ -56,7 +58,7 @@ function randomize_lines(){
             random_number(255),
             random_number(255),
             random_number(255)
-        ])
+        ]);
     }while(i--);
 
     draw();
@@ -71,8 +73,11 @@ function resize(){
         width = get('buffer').width = get('canvas').width = window.innerWidth;
         height = get('buffer').height = get('canvas').height = window.innerHeight;
 
-        mouse_x = x = width / 2;
-        mouse_y = y = height / 2;
+        x = width / 2;
+        y = height / 2;
+
+        mouse_x = x;
+        mouse_y = y;
 
         randomize_lines();
     }
@@ -104,13 +109,13 @@ function save(){
                 1,
                 100
             ][i];
-            get(j).value = settings[i]
+            get(j).value = settings[i];
         }else{
             settings[i] = parseInt(get(j).value);
             ls.setItem(
                 'warped-' + i,
                 settings[i]
-            )
+            );
         }
     }while(i--);
 
