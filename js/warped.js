@@ -70,8 +70,13 @@ function random_number(i){
 
 function resize(){
     if(mode > 0){
-        width = get('buffer').width = get('canvas').width = window.innerWidth;
-        height = get('buffer').height = get('canvas').height = window.innerHeight;
+        width = window.innerWidth;
+        get('buffer').width = width;
+        get('canvas').width = width;
+
+        height = window.innerHeight;
+        get('buffer').height = height;
+        get('canvas').height = height;
 
         x = width / 2;
         y = height / 2;
@@ -89,6 +94,7 @@ function save(){
     if(get('randomize-key').value === 'R'){
         ls.removeItem('warped-2');
         settings[2] = 'R';
+
     }else{
         settings[2] = get('randomize-key').value;
         ls.setItem(
@@ -110,6 +116,7 @@ function save(){
                 100
             ][i];
             get(j).value = settings[i];
+
         }else{
             settings[i] = parseInt(get(j).value);
             ls.setItem(
@@ -124,6 +131,7 @@ function save(){
         settings[3 + i] = get(['clear', 'mouse-lock'][i]).checked;
         if(settings[3 + i]){
             ls.removeItem('warped-' + (3 + i));
+
         }else{
             ls.setItem(
                 'warped-' + (3 + i),
@@ -204,6 +212,7 @@ window.onmousedown = function(e){
         if(!settings[4]){/* mouse not locked */
             mouse_x = e.pageX;
             mouse_y = e.pageY;
+
             draw();
         }
     }
@@ -213,6 +222,7 @@ window.onmousemove = function(e){
     if(mode > 0 && settings[4]){/* mouse locked */
         mouse_x = e.pageX;
         mouse_y = e.pageY;
+
         draw();
     }
 }
