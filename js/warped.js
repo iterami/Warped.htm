@@ -8,24 +8,42 @@ function draw(){
         );
     }
 
-    buffer.lineWidth = settings[0];
-    i = lines.length - 1;
-    do{
-        buffer.beginPath();
-        buffer.moveTo(
-            lines[i][0],
-            lines[i][1]
-        );
-        buffer.lineTo(
-            mouse_x,
-            mouse_y
-        );
-        buffer.closePath();
-        buffer.strokeStyle = 'rgb(' + lines[i][2] + ', '
-                                    + lines[i][3] + ', '
-                                    + lines[i][4] + ')';
-        buffer.stroke();
-    }while(i--);
+    /* circles */
+    if(mode == 1){
+        buffer.lineWidth = settings[0];
+        i = objs.length - 1;
+        do{
+            buffer.beginPath();
+            buffer.moveTo(
+                objs[i][0],
+                objs[i][1]
+            );
+            buffer.lineTo(
+                mouse_x,
+                mouse_y
+            );
+            buffer.closePath();
+            buffer.strokeStyle = 'rgb(' + objs[i][2] + ', '
+                                        + objs[i][3] + ', '
+                                        + objs[i][4] + ')';
+            buffer.stroke();
+        }while(i--);
+
+    /* rectangles */
+    }else{
+        i = objs.length - 1;
+        do{
+            buffer.fillStyle = 'rgb(' + objs[i][2] + ', '
+                                      + objs[i][3] + ', '
+                                      + objs[i][4] + ')';
+            buffer.fillRect(
+                objs[i][0],
+                objs[i][1],
+                objs[i][0] - mouse_x,
+                objs[i][1] - mouse_y
+            );
+        }while(i--);
+    }
 
     if(settings[3]){/* clear? */
         canvas.clearRect(
@@ -46,13 +64,13 @@ function get(i){
     return document.getElementById(i);
 }
 
-function randomize_lines(){
-    lines = [];
+function randomize_objs(){
+    objs = [];
 
-    i = settings[1] - 1;/* number of lines */
+    i = settings[1] - 1;/* number of objs */
     do{
         /* create line with start_x, start_y, and random rgb color */
-        lines.push([
+        objs.push([
             random_number(width),
             random_number(height),
             random_number(255),
@@ -84,7 +102,7 @@ function resize(){
         mouse_x = x;
         mouse_y = y;
 
-        randomize_lines();
+        randomize_objs();
     }
 }
 
@@ -107,7 +125,7 @@ function save(){
     do{
         j = [
             'line-width',
-            'number-of-lines'
+            'number-of-objs'
         ][i];
         if(get(j).value === [1, 100][i] || isNaN(get(j).value) || get(j).value < 1){
             ls.removeItem('warped-' + i);
@@ -159,10 +177,10 @@ function setmode(newmode){
         buffer = 0;
         canvas = 0;
 
-        get('page').innerHTML = '<div style="border-right:8px solid #222;display:inline-block;text-align:left;vertical-align:top"><div class=c><b>Warped</b></div><hr><div class=c style=color:#f00>SEIZURE WARNING!<br>FLASHING LIGHTS!</div><hr><div class=c><a onclick=setmode(1)>Lines</a></div><hr><div class=c><input id=number-of-lines size=1 type=text value='
-            + settings[1] + '>Lines<br><input id=line-width size=1 type=text value='
+        get('page').innerHTML = '<div style="border-right:8px solid #222;display:inline-block;text-align:left;vertical-align:top"><div class=c><b>Warped</b></div><hr><div class=c style=color:#f00>SEIZURE WARNING!<br>FLASHING COLORS!</div><hr><div class=c><ul><li><a onclick=setmode(1)>Lines</a><li><a onclick=setmode(2)>Rectangles</a></ul></div><hr><div class=c><input id=line-width size=1 type=text value='
             + settings[0] + '>Line Width<br><label><input '
-            + (settings[4] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label></div></div><div style=display:inline-block;text-align:left><div class=c><input disabled size=3 style=border:0 type=text value=ESC>Main Menu<br><input id=randomize-key maxlength=1 size=3 type=text value='
+            + (settings[4] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objs size=1 type=text value='
+            + settings[1] + '>Objects</div></div><div style=display:inline-block;text-align:left><div class=c><input disabled size=3 style=border:0 type=text value=ESC>Main Menu<br><input id=randomize-key maxlength=1 size=3 type=text value='
             + settings[2] + '>Randomize</div><hr><div class=c><label><input '
             + (settings[3] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'line-width\').value=get(\'mouse-lock\').checked=1;get(\'randomize-key\').value=\'R\';get(\'number-of-lines\').value=100;save();setmode(0)}">Reset Settings</a></div></div>';
     }
