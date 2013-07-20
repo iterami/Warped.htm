@@ -1,4 +1,6 @@
 function draw(){
+    i = objs.length - 1;
+
     if(settings[3]){// clear?
         buffer.clearRect(
             0,
@@ -7,8 +9,6 @@ function draw(){
             height
         );
     }
-
-    i = objs.length - 1;
 
     // circles mode
     if(mode == 1){
@@ -142,10 +142,7 @@ function save(){
                 settings[i]
             );
         }
-    }while(i--);
 
-    i = 1;
-    do{
         settings[3 + i] = get(['clear', 'mouse-lock'][i]).checked;
         if(settings[3 + i]){
             ls.removeItem('warped-' + (3 + i));
@@ -225,14 +222,11 @@ window.onkeydown = function(e){
 };
 
 window.onmousedown = function(e){
-    if(mode > 0){
-        e.preventDefault();
-        if(!settings[4]){// mouse not locked
-            mouse_x = e.pageX;
-            mouse_y = e.pageY;
+    if(mode > 0 && !settings[4]){// mouse not locked
+        mouse_x = e.pageX;
+        mouse_y = e.pageY;
 
-            draw();
-        }
+        draw();
     }
 };
 
