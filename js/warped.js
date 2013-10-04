@@ -179,7 +179,7 @@ function setmode(newmode){
             + (settings[4] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objs size=1 value='
             + settings[1] + '>Objects</div></div><div style=display:inline-block;text-align:left><div class=c><input disabled size=3 style=border:0 value=ESC>Main Menu<br><input id=randomize-key maxlength=1 size=3 value='
             + settings[2] + '>Randomize</div><hr><div class=c><label><input '
-            + (settings[3] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'line-width\').value=get(\'mouse-lock\').checked=1;get(\'randomize-key\').value=\'R\';get(\'number-of-lines\').value=100;save();setmode(0)}">Reset Settings</a></div></div>';
+            + (settings[3] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'line-width\').value=get(\'mouse-lock\').checked=1;get(\'randomize-key\').value=\'R\';get(\'number-of-objs\').value=100;save();setmode(0)}">Reset Settings</a></div></div>';
     }
 }
 
