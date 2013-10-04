@@ -65,7 +65,7 @@ function get(i){
 }
 
 function randomize_objs(){
-    objs = [];
+    objs.length = 0;
 
     i = settings[1] - 1;// number of objs
     do{
@@ -188,7 +188,7 @@ var canvas = 0;
 var height = 0;
 var i = 0;
 var j = 0;
-var lines = [];
+var objs = [];
 var ls = window.localStorage;
 var mode = 0;
 var mouse_x = 0;
@@ -213,7 +213,7 @@ window.onkeydown = function(e){
         i = i.charCode ? i.charCode : i.keyCode;
 
         if(String.fromCharCode(i) === settings[2]){// randomize key
-            randomize_lines();
+            randomize_objs();
 
         }else if(i === 27){// ESC
             setmode(0);
