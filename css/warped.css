@@ -30,6 +30,7 @@ input{
     color: #aaa;
     font-size: 100%;
     text-align: center;
+    width: 75px;
 }
 ul{
     margin: 0;
