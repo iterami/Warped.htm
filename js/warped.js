@@ -1,6 +1,4 @@
 function draw(){
-    i = objs.length - 1;
-
     if(settings[3]){// clear?
         buffer.clearRect(
             0,
@@ -10,10 +8,24 @@ function draw(){
         );
     }
 
-    // circles mode
-    if(mode == 1){
-        buffer.lineWidth = settings[0];
-        do{
+    i = objs.length - 1;
+    buffer.lineWidth = settings[0];
+    do{
+        // draw rectangles if not in lines mode
+        if(mode != 1){
+            buffer.fillStyle = 'rgb(' + objs[i][2] + ', '
+                                      + objs[i][3] + ', '
+                                      + objs[i][4] + ')';
+            buffer.fillRect(
+                objs[i][0],
+                objs[i][1],
+                objs[i][0] - mouse_x,
+                objs[i][1] - mouse_y
+            );
+        }
+
+        // draw lines if not in rectangles mode
+        if(mode != 2){
             buffer.beginPath();
             buffer.moveTo(
                 objs[i][0],
@@ -28,22 +40,8 @@ function draw(){
                                         + objs[i][3] + ', '
                                         + objs[i][4] + ')';
             buffer.stroke();
-        }while(i--);
-
-    // rectangles mode
-    }else{
-        do{
-            buffer.fillStyle = 'rgb(' + objs[i][2] + ', '
-                                      + objs[i][3] + ', '
-                                      + objs[i][4] + ')';
-            buffer.fillRect(
-                objs[i][0],
-                objs[i][1],
-                objs[i][0] - mouse_x,
-                objs[i][1] - mouse_y
-            );
-        }while(i--);
-    }
+        }
+    }while(i--);
 
     if(settings[3]){// clear?
         canvas.clearRect(
@@ -69,7 +67,7 @@ function randomize_objs(){
 
     i = settings[1] - 1;// number of objs
     do{
-        // create line with start_x, start_y, and random rgb color
+        // create random object with x, y, and random rgb color
         objs.push([
             random_number(width),
             random_number(height),
@@ -174,7 +172,7 @@ function setmode(newmode){
         buffer = 0;
         canvas = 0;
 
-        get('page').innerHTML = '<div style="border-right:8px solid #222;display:inline-block;text-align:left;vertical-align:top"><div class=c><b>Warped</b></div><hr><div class=c style=color:#f00>SEIZURE WARNING!<br>FLASHING COLORS!</div><hr><div class=c><ul><li><a onclick=setmode(1)>Lines</a><li><a onclick=setmode(2)>Rectangles</a></ul></div><hr><div class=c><input id=line-width value='
+        get('page').innerHTML = '<div style="border-right:8px solid #222;display:inline-block;text-align:left;vertical-align:top"><div class=c><b>Warped</b></div><hr><div class=c style=color:#f00>SEIZURE WARNING!<br>FLASHING COLORS!</div><hr><div class=c><ul><li><a onclick=setmode(3)>Both</a><li><a onclick=setmode(1)>Lines</a><li><a onclick=setmode(2)>Rectangles</a></ul></div><hr><div class=c><input id=line-width value='
             + settings[0] + '>Line Width<br><input id=number-of-objs value='
             + settings[1] + '>Objects</div></div><div style=display:inline-block;text-align:left><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
             + settings[2] + '>Randomize</div><hr><div class=c><label><input '
