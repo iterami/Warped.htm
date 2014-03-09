@@ -52,14 +52,10 @@ function draw(){
         );
     }
     canvas.drawImage(
-        get('buffer'),
+        document.getElementById('buffer'),
         0,
         0
     );
-}
-
-function get(i){
-    return document.getElementById(i);
 }
 
 function randomize_objs(){
@@ -84,15 +80,26 @@ function random_number(i){
     return Math.floor(Math.random() * i);
 }
 
+function reset(){
+    if(confirm('Reset settings?')){
+        document.getElementById('clear').checked = 1;
+        document.getElementById('line-width').value = 1;
+        document.getElementById('mouse-lock').checked = 1;
+        document.getElementById('number-of-objs').value = 100;
+        document.getElementById('randomize-key').value = 'R';
+        save();
+    }
+}
+
 function resize(){
     if(mode > 0){
         width = window.innerWidth;
-        get('buffer').width = width;
-        get('canvas').width = width;
+        document.getElementById('buffer').width = width;
+        document.getElementById('canvas').width = width;
 
         height = window.innerHeight;
-        get('buffer').height = height;
-        get('canvas').height = height;
+        document.getElementById('buffer').height = height;
+        document.getElementById('canvas').height = height;
 
         x = width / 2;
         y = height / 2;
@@ -107,12 +114,12 @@ function resize(){
 function save(){
     // save settings into localStorage if differ from default
 
-    if(get('randomize-key').value === 'R'){
+    if(document.getElementById('randomize-key').value === 'R'){
         ls.removeItem('warped-2');
         settings[2] = 'R';
 
     }else{
-        settings[2] = get('randomize-key').value;
+        settings[2] = document.getElementById('randomize-key').value;
         ls.setItem(
             'warped-2',
             settings[2]
@@ -125,23 +132,23 @@ function save(){
             'line-width',
             'number-of-objs'
         ][i];
-        if(get(j).value === [1, 100][i] || isNaN(get(j).value) || get(j).value < 1){
+        if(document.getElementById(j).value === [1, 100][i] || isNaN(document.getElementById(j).value) || document.getElementById(j).value < 1){
             ls.removeItem('warped-' + i);
             settings[i] = [
                 1,
                 100
             ][i];
-            get(j).value = settings[i];
+            document.getElementById(j).value = settings[i];
 
         }else{
-            settings[i] = parseInt(get(j).value);
+            settings[i] = parseInt(document.getElementById(j).value);
             ls.setItem(
                 'warped-' + i,
                 settings[i]
             );
         }
 
-        settings[3 + i] = get(['clear', 'mouse-lock'][i]).checked;
+        settings[3 + i] = document.getElementById(['clear', 'mouse-lock'][i]).checked;
         if(settings[3 + i]){
             ls.removeItem('warped-' + (3 + i));
 
@@ -161,9 +168,9 @@ function setmode(newmode){
     if(mode > 0){
         save();
 
-        get('page').innerHTML = '<canvas id=canvas></canvas>';
-        buffer = get('buffer').getContext('2d');
-        canvas = get('canvas').getContext('2d');
+        document.getElementById('page').innerHTML = '<canvas id=canvas></canvas>';
+        buffer = document.getElementById('buffer').getContext('2d');
+        canvas = document.getElementById('canvas').getContext('2d');
 
         resize();
 
@@ -172,12 +179,12 @@ function setmode(newmode){
         buffer = 0;
         canvas = 0;
 
-        get('page').innerHTML = '<div style="border-right:8px solid #222;display:inline-block;text-align:left;vertical-align:top"><div class=c><b>Warped</b></div><hr><div class=c style=color:#f00>SEIZURE WARNING!<br>FLASHING COLORS!</div><hr><div class=c><ul><li><a onclick=setmode(3)>Both</a><li><a onclick=setmode(1)>Lines</a><li><a onclick=setmode(2)>Rectangles</a></ul></div><hr><div class=c><input id=line-width value='
-            + settings[0] + '>Line Width<br><input id=number-of-objs value='
-            + settings[1] + '>Objects</div></div><div style=display:inline-block;text-align:left><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
+        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>Warped</b></div><hr><div class=c style=color:#f00>SEIZURE WARNING!<br>FLASHING COLORS!</div><hr><div class=c><ul><li><a onclick=setmode(3)>Both</a><li><a onclick=setmode(1)>Lines</a><li><a onclick=setmode(2)>Rectangles</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
             + settings[2] + '>Randomize</div><hr><div class=c><label><input '
-            + (settings[3] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><label><input '
-            + (settings[4] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'line-width\').value=get(\'mouse-lock\').checked=1;get(\'randomize-key\').value=\'R\';get(\'number-of-objs\').value=100;save();setmode(0)}">Reset Settings</a></div></div>';
+            + (settings[3] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-width value='
+            + settings[0] + '>Line Width<br><label><input '
+            + (settings[4] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objs value='
+            + settings[1] + '>Objects<br><a onclick=reset()>Reset Settings</a></div></div>';
     }
 }
 
