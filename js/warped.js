@@ -8,21 +8,21 @@ function draw(){
         );
     }
 
-    i = objects.length - 1;
     buffer.lineWidth = settings[0];
+    var loop_counter = objects.length - 1;
     do{
         // draw rectangles if not in lines mode
         if(mode != 1){
-            buffer.fillStyle =
-              'rgb(' + objects[i][2] + ', '
-              + objects[i][3] + ', '
-              + objects[i][4] + ')';
+            buffer.fillStyle = 'rgb('
+              + objects[loop_counter][2] + ', '
+              + objects[loop_counter][3] + ', '
+              + objects[loop_counter][4] + ')';
 
             buffer.fillRect(
-              objects[i][0],
-              objects[i][1],
-              objects[i][0] - mouse_x,
-              objects[i][1] - mouse_y
+              objects[loop_counter][0],
+              objects[loop_counter][1],
+              objects[loop_counter][0] - mouse_x,
+              objects[loop_counter][1] - mouse_y
             );
         }
 
@@ -30,20 +30,21 @@ function draw(){
         if(mode != 2){
             buffer.beginPath();
             buffer.moveTo(
-              objects[i][0],
-              objects[i][1]
+              objects[loop_counter][0],
+              objects[loop_counter][1]
             );
             buffer.lineTo(
               mouse_x,
               mouse_y
             );
             buffer.closePath();
-            buffer.strokeStyle = 'rgb(' + objects[i][2] + ', '
-              + objects[i][3] + ', '
-              + objects[i][4] + ')';
+            buffer.strokeStyle = 'rgb('
+              + objects[loop_counter][2] + ', '
+              + objects[loop_counter][3] + ', '
+              + objects[loop_counter][4] + ')';
             buffer.stroke();
         }
-    }while(i--);
+    }while(loop_counter--);
 
     if(settings[3]){// clear?
         canvas.clearRect(
@@ -63,7 +64,7 @@ function draw(){
 function randomize_objects(){
     objects.length = 0;
 
-    i = settings[1] - 1;// number of objects
+    var loop_counter = settings[1] - 1;// number of objects
     do{
         // create random object with x, y, and random rgb color
         objects.push([
@@ -73,7 +74,7 @@ function randomize_objects(){
           Math.floor(Math.random() * 255),
           Math.floor(Math.random() * 255)
         ]);
-    }while(i--);
+    }while(loop_counter--);
 
     draw();
 }
@@ -91,19 +92,17 @@ function reset(){
 
 function resize(){
     if(mode > 0){
-        width = window.innerWidth;
-        document.getElementById('buffer').width = width;
-        document.getElementById('canvas').width = width;
-
         height = window.innerHeight;
         document.getElementById('buffer').height = height;
         document.getElementById('canvas').height = height;
-
-        x = width / 2;
         y = height / 2;
-
-        mouse_x = x;
         mouse_y = y;
+
+        width = window.innerWidth;
+        document.getElementById('buffer').width = width;
+        document.getElementById('canvas').width = width;
+        x = width / 2;
+        mouse_x = x;
 
         randomize_objects();
     }
@@ -124,41 +123,41 @@ function save(){
         );
     }
 
-    i = 1;
+    var loop_counter = 1;
     do{
         j = [
           'line-width',
           'number-of-objects'
-        ][i];
-        if(document.getElementById(j).value === [1, 100][i]
+        ][loop_counter];
+        if(document.getElementById(j).value === [1, 100][loop_counter]
           || isNaN(document.getElementById(j).value)
           || document.getElementById(j).value < 1){
-            window.localStorage.removeItem('warped-' + i);
-            settings[i] = [
+            window.localStorage.removeItem('warped-' + loop_counter);
+            settings[loop_counter] = [
               1,
               100
-            ][i];
-            document.getElementById(j).value = settings[i];
+            ][loop_counter];
+            document.getElementById(j).value = settings[loop_counter];
 
         }else{
-            settings[i] = parseInt(document.getElementById(j).value);
+            settings[loop_counter] = parseInt(document.getElementById(j).value);
             window.localStorage.setItem(
-              'warped-' + i,
-              settings[i]
+              'warped-' + loop_counter,
+              settings[loop_counter]
             );
         }
 
-        settings[3 + i] = document.getElementById(['clear', 'mouse-lock'][i]).checked;
-        if(settings[3 + i]){
-            window.localStorage.removeItem('warped-' + (3 + i));
+        settings[3 + loop_counter] = document.getElementById(['clear', 'mouse-lock'][loop_counter]).checked;
+        if(settings[3 + loop_counter]){
+            window.localStorage.removeItem('warped-' + (3 + loop_counter));
 
         }else{
             window.localStorage.setItem(
-              'warped-' + (3 + i),
+              'warped-' + (3 + loop_counter),
               0
             );
         }
-    }while(i--);
+    }while(loop_counter--);
 }
 
 function setmode(newmode){
@@ -191,7 +190,6 @@ function setmode(newmode){
 var buffer = 0;
 var canvas = 0;
 var height = 0;
-var i = 0;
 var j = 0;
 var objects = [];
 var mode = 0;
