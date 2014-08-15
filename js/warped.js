@@ -81,9 +81,9 @@ function randomize_objects(){
 
 function reset(){
     if(confirm('Reset settings?')){
-        document.getElementById('clear').checked = 1;
+        document.getElementById('clear').checked = true;
         document.getElementById('line-width').value = 1;
-        document.getElementById('mouse-lock').checked = 1;
+        document.getElementById('mouse-lock').checked = true;
         document.getElementById('number-of-objects').value = 100;
         document.getElementById('randomize-key').value = 'R';
         save();
