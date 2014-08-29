@@ -247,6 +247,6 @@ window.onmousemove = function(e){
 
         draw();
     }
-}
+};
 
 window.onresize = resize;
