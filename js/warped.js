@@ -11,7 +11,7 @@ function draw(){
     buffer.lineWidth = settings['line-width'];
     var loop_counter = objects.length - 1;
     do{
-        // draw rectangles if not in lines mode
+        // Draw rectangles if not in lines mode.
         if(mode != 1){
             buffer.fillStyle = 'rgb('
               + objects[loop_counter][2] + ', '
@@ -26,7 +26,7 @@ function draw(){
             );
         }
 
-        // draw lines if not in rectangles mode
+        // Draw lines if not in rectangles mode.
         if(mode != 2){
             buffer.beginPath();
             buffer.moveTo(
@@ -66,13 +66,13 @@ function randomize_objects(){
 
     var loop_counter = settings['number-of-objects'] - 1;
     do{
-        // create random object with x, y, and random rgb color
+        // Create randomized object.
         objects.push([
-          Math.floor(Math.random() * width),
-          Math.floor(Math.random() * height),
-          Math.floor(Math.random() * 255),
-          Math.floor(Math.random() * 255),
-          Math.floor(Math.random() * 255)
+          Math.floor(Math.random() * width),// X
+          Math.floor(Math.random() * height),// Y
+          Math.floor(Math.random() * 255),// (Red)GB
+          Math.floor(Math.random() * 255),// R(Green)B
+          Math.floor(Math.random() * 255),// RG(Blue)
         ]);
     }while(loop_counter--);
 
@@ -108,7 +108,8 @@ function resize(){
     }
 }
 
-// save settings into localStorage if differ from default
+// Save settings into window.localStorage
+//   if they differ from default settings.
 function save(){
     // Save clear setting.
     if(document.getElementById('clear').checked){
@@ -182,7 +183,7 @@ function save(){
 function setmode(newmode){
     mode = newmode;
 
-    // new visualization mode
+    // Visualization mode.
     if(mode > 0){
         save();
 
@@ -192,7 +193,7 @@ function setmode(newmode){
 
         resize();
 
-    // main menu mode
+    // Main menu mode.
     }else{
         buffer = 0;
         canvas = 0;
@@ -235,37 +236,45 @@ resize();
 setmode(0);
 
 window.onkeydown = function(e){
-    if(mode > 0){
-        var key = window.event ? event : e;
-        key = key.charCode ? key.charCode : key.keyCode;
+    if(mode <= 0){
+        return;
+    }
 
-        if(String.fromCharCode(key) === settings['randomize-key']){
-            randomize_objects();
+    var key = window.event ? event : e;
+    key = key.charCode ? key.charCode : key.keyCode;
 
-        }else if(key === 27){// ESC
-            setmode(0);
-        }
+    // settings['randomize-key']: randomize current objects.
+    if(String.fromCharCode(key) === settings['randomize-key']){
+        randomize_objects();
+
+    // ESC: return to the main menu.
+    }else if(key === 27){
+        setmode(0);
     }
 };
 
 window.onmousedown = function(e){
-    if(mode > 0
-      && !settings['mouse-lock']){
-        mouse_x = e.pageX;
-        mouse_y = e.pageY;
-
-        draw();
+    if(mode <= 0
+      || settings['mouse-lock']){
+        return;
     }
+
+    mouse_x = e.pageX;
+    mouse_y = e.pageY;
+
+    draw();
 };
 
 window.onmousemove = function(e){
-    if(mode > 0
-      && settings['mouse-lock']){
-        mouse_x = e.pageX;
-        mouse_y = e.pageY;
-
-        draw();
+    if(mode <= 0
+      || !settings['mouse-lock']){
+        return;
     }
+
+    mouse_x = e.pageX;
+    mouse_y = e.pageY;
+
+    draw();
 };
 
 window.onresize = resize;
