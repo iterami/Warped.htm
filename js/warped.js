@@ -80,32 +80,37 @@ function randomize_objects(){
 }
 
 function reset(){
-    if(confirm('Reset settings?')){
-        document.getElementById('clear').checked = true;
-        document.getElementById('line-width').value = 1;
-        document.getElementById('mouse-lock').checked = true;
-        document.getElementById('number-of-objects').value = 100;
-        document.getElementById('randomize-key').value = 'R';
-        save();
+    if(!confirm('Reset settings?')){
+        return;
     }
+
+    document.getElementById('clear').checked = true;
+    document.getElementById('line-width').value = 1;
+    document.getElementById('mouse-lock').checked = true;
+    document.getElementById('number-of-objects').value = 100;
+    document.getElementById('randomize-key').value = 'R';
+
+    save();
 }
 
 function resize(){
-    if(mode > 0){
-        height = window.innerHeight;
-        document.getElementById('buffer').height = height;
-        document.getElementById('canvas').height = height;
-        y = height / 2;
-        mouse_y = y;
-
-        width = window.innerWidth;
-        document.getElementById('buffer').width = width;
-        document.getElementById('canvas').width = width;
-        x = width / 2;
-        mouse_x = x;
-
-        randomize_objects();
+    if(mode <= 0){
+        return;
     }
+
+    height = window.innerHeight;
+    document.getElementById('buffer').height = height;
+    document.getElementById('canvas').height = height;
+    y = height / 2;
+    mouse_y = y;
+
+    width = window.innerWidth;
+    document.getElementById('buffer').width = width;
+    document.getElementById('canvas').width = width;
+    x = width / 2;
+    mouse_x = x;
+
+    randomize_objects();
 }
 
 // Save settings into window.localStorage
