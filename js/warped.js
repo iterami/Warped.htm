@@ -259,9 +259,9 @@ window.onkeydown = function(e){
     }
 };
 
-window.onmousedown = function(e){
-    if(mode <= 0
-      || settings['mouse-lock']){
+window.onmousedown =
+  window.ontouchstart = function(e){
+    if(mode <= 0){
         return;
     }
 
