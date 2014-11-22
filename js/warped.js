@@ -246,8 +246,7 @@ window.onkeydown = function(e){
         return;
     }
 
-    var key = window.event ? event : e;
-    key = key.charCode ? key.charCode : key.keyCode;
+    var key = e.keyCode || e.which;
 
     // settings['randomize-key']: randomize current objects.
     if(String.fromCharCode(key) === settings['randomize-key']){
