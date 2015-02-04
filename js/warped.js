@@ -216,7 +216,6 @@ function setmode(newmode){
 var buffer = 0;
 var canvas = 0;
 var height = 0;
-var j = 0;
 var objects = [];
 var mode = 0;
 var mouse_x = 0;
