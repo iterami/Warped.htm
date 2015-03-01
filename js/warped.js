@@ -9,20 +9,19 @@ function draw(){
     }
 
     buffer.lineWidth = settings['line-width'];
-    var loop_counter = objects.length - 1;
-    do{
+    for(var object in objects){
         // Draw rectangles if not in lines mode.
         if(mode != 1){
             buffer.fillStyle = 'rgb('
-              + objects[loop_counter][2] + ', '
-              + objects[loop_counter][3] + ', '
-              + objects[loop_counter][4] + ')';
+              + objects[object][2] + ', '
+              + objects[object][3] + ', '
+              + objects[object][4] + ')';
 
             buffer.fillRect(
-              objects[loop_counter][0],
-              objects[loop_counter][1],
-              objects[loop_counter][0] - mouse_x,
-              objects[loop_counter][1] - mouse_y
+              objects[object][0],
+              objects[object][1],
+              objects[object][0] - mouse_x,
+              objects[object][1] - mouse_y
             );
         }
 
@@ -30,8 +29,8 @@ function draw(){
         if(mode != 2){
             buffer.beginPath();
             buffer.moveTo(
-              objects[loop_counter][0],
-              objects[loop_counter][1]
+              objects[object][0],
+              objects[object][1]
             );
             buffer.lineTo(
               mouse_x,
@@ -39,12 +38,12 @@ function draw(){
             );
             buffer.closePath();
             buffer.strokeStyle = 'rgb('
-              + objects[loop_counter][2] + ', '
-              + objects[loop_counter][3] + ', '
-              + objects[loop_counter][4] + ')';
+              + objects[object][2] + ', '
+              + objects[object][3] + ', '
+              + objects[object][4] + ')';
             buffer.stroke();
         }
-    }while(loop_counter--);
+    }
 
     if(settings['clear']){
         canvas.clearRect(
