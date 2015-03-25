@@ -163,7 +163,7 @@ function save(){
         );
     }
 
-    if(document.getElementById('number-of-objects').value === 100
+    if(document.getElementById('number-of-objects').value == 100
       || isNaN(document.getElementById('number-of-objects').value)
       || document.getElementById('number-of-objects').value < 1){
         window.localStorage.removeItem('Warped.htm-number-of-objects');
