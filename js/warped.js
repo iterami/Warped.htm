@@ -215,16 +215,10 @@ var mouse_x = 0;
 var mouse_y = 0;
 var settings = {
   'clear': window.localStorage.getItem('Warped.htm-clear') === null,
-  'line-width' : window.localStorage.getItem('Warped.htm-line-width') === null
-    ? 1
-    : parseInt(window.localStorage.getItem('Warped.htm-line-width')),
-  'randomize-key': window.localStorage.getItem('Warped.htm-randomize-key') === null
-    ? 'R'
-    : window.localStorage.getItem('Warped.htm-randomize-key'),
+  'line-width' : parseInt(window.localStorage.getItem('Warped.htm-line-width')) || 1,
+  'randomize-key': window.localStorage.getItem('Warped.htm-randomize-key') || 'R',
   'mouse-lock': window.localStorage.getItem('Warped.htm-mouse-lock') === null,
-  'number-of-objects': window.localStorage.getItem('Warped.htm-number-of-objects') === null
-    ? 100
-    : parseInt(window.localStorage.getItem('Warped.htm-number-of-objects')),
+  'number-of-objects': parseInt(window.localStorage.getItem('Warped.htm-number-of-objects')) || 100,
 };
 var x = 0;
 var width = 0;
