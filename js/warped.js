@@ -224,9 +224,6 @@ var x = 0;
 var width = 0;
 var y = 0;
 
-resize();
-setmode(0);
-
 window.onkeydown = function(e){
     if(mode <= 0){
         return;
@@ -242,6 +239,11 @@ window.onkeydown = function(e){
     }else if(key === 27){
         setmode(0);
     }
+};
+
+window.onload = function(e){
+    resize();
+    setmode(0);
 };
 
 window.onmousedown =
