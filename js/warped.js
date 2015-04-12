@@ -192,18 +192,19 @@ function setmode(newmode){
 
         resize();
 
-    // Main menu mode.
-    }else{
-        buffer = 0;
-        canvas = 0;
-
-        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><a onclick=setmode(3)>Both</a><br><a onclick=setmode(1)>Lines</a><br><a onclick=setmode(2)>Rectangles</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
-          + settings['randomize-key'] + '>Randomize</div><hr><div class=c><label><input '
-          + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-width value='
-          + settings['line-width'] + '>Line Width<br><label><input '
-          + (settings['mouse-lock'] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects value='
-          + settings['number-of-objects'] + '>Objects<br><a onclick=reset()>Reset Settings</a></div></div>';
+        return;
     }
+
+    // Main menu mode.
+    buffer = 0;
+    canvas = 0;
+
+    document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><a onclick=setmode(3)>Both</a><br><a onclick=setmode(1)>Lines</a><br><a onclick=setmode(2)>Rectangles</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
+      + settings['randomize-key'] + '>Randomize</div><hr><div class=c><label><input '
+      + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-width value='
+      + settings['line-width'] + '>Line Width<br><label><input '
+      + (settings['mouse-lock'] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects value='
+      + settings['number-of-objects'] + '>Objects<br><a onclick=reset()>Reset Settings</a></div></div>';
 }
 
 var buffer = 0;
