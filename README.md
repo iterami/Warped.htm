@@ -1,1 +1,11 @@
-Beginnings of a visualizer project.
+Warped.htm
+----------
+
+Visualizer project.
+
+---
+
+Action              | Key
+--------------------|----
+Randomize           | R
+Return to Main Menu | ESC
