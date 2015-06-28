@@ -13,15 +13,15 @@ function draw(){
         // Draw rectangles if not in lines mode.
         if(mode != 1){
             buffer.fillStyle = 'rgb('
-              + objects[object][2] + ', '
-              + objects[object][3] + ', '
-              + objects[object][4] + ')';
+              + objects[object]['red'] + ', '
+              + objects[object]['green'] + ', '
+              + objects[object]['blue'] + ')';
 
             buffer.fillRect(
-              objects[object][0],
-              objects[object][1],
-              objects[object][0] - mouse_x,
-              objects[object][1] - mouse_y
+              objects[object]['x'],
+              objects[object]['y'],
+              objects[object]['x'] - mouse_x,
+              objects[object]['y'] - mouse_y
             );
         }
 
@@ -29,8 +29,8 @@ function draw(){
         if(mode != 2){
             buffer.beginPath();
             buffer.moveTo(
-              objects[object][0],
-              objects[object][1]
+              objects[object]['x'],
+              objects[object]['y']
             );
             buffer.lineTo(
               mouse_x,
@@ -38,9 +38,9 @@ function draw(){
             );
             buffer.closePath();
             buffer.strokeStyle = 'rgb('
-              + objects[object][2] + ', '
-              + objects[object][3] + ', '
-              + objects[object][4] + ')';
+              + objects[object]['red'] + ', '
+              + objects[object]['green'] + ', '
+              + objects[object]['blue'] + ')';
             buffer.stroke();
         }
     }
@@ -66,13 +66,13 @@ function randomize_objects(){
     var loop_counter = settings['number-of-objects'] - 1;
     do{
         // Create randomized object.
-        objects.push([
-          Math.floor(Math.random() * width),// X
-          Math.floor(Math.random() * height),// Y
-          Math.floor(Math.random() * 255),// (Red)GB
-          Math.floor(Math.random() * 255),// R(Green)B
-          Math.floor(Math.random() * 255),// RG(Blue)
-        ]);
+        objects.push({
+          'blue': Math.floor(Math.random() * 255),
+          'green': Math.floor(Math.random() * 255),
+          'red': Math.floor(Math.random() * 255),
+          'x': Math.floor(Math.random() * width),
+          'y': Math.floor(Math.random() * height),
+        });
     }while(loop_counter--);
 
     draw();
