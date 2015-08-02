@@ -14,11 +14,7 @@ function draw(){
     for(var object in objects){
         // Draw rectangles if not in lines mode.
         if(mode != 1){
-            buffer.fillStyle = 'rgb('
-              + objects[object]['red'] + ', '
-              + objects[object]['green'] + ', '
-              + objects[object]['blue'] + ')';
-
+            buffer.fillStyle = objects[object]['color'];
             buffer.fillRect(
               objects[object]['x'],
               objects[object]['y'],
@@ -39,10 +35,7 @@ function draw(){
               mouse_y
             );
             buffer.closePath();
-            buffer.strokeStyle = 'rgb('
-              + objects[object]['red'] + ', '
-              + objects[object]['green'] + ', '
-              + objects[object]['blue'] + ')';
+            buffer.strokeStyle = objects[object]['color'];
             buffer.stroke();
         }
     }
@@ -62,6 +55,14 @@ function draw(){
     );
 }
 
+function random_hex(){
+    var choices = '0123456789abcdef';
+    return '#'
+      + choices.charAt(Math.floor(Math.random() * 16))
+      + choices.charAt(Math.floor(Math.random() * 16))
+      + choices.charAt(Math.floor(Math.random() * 16));
+}
+
 function randomize_objects(){
     objects.length = 0;
 
@@ -69,9 +70,7 @@ function randomize_objects(){
     do{
         // Create randomized object.
         objects.push({
-          'blue': Math.floor(Math.random() * 255),
-          'green': Math.floor(Math.random() * 255),
-          'red': Math.floor(Math.random() * 255),
+          'color': random_hex(),
           'x': Math.floor(Math.random() * width),
           'y': Math.floor(Math.random() * height),
         });
