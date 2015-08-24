@@ -39,6 +39,14 @@ input[disabled]{
 input[type=checkbox]{
     cursor: pointer;
 }
+#page > div{
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+}
 #page > div > div{
     padding: 4px;
+}
+.right{
+    border-left: 8px solid #222;
 }

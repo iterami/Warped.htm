@@ -210,7 +210,7 @@ function setmode(newmode){
     buffer = 0;
     canvas = 0;
 
-    document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div><a onclick=setmode(3)>Both</a><br><a onclick=setmode(1)>Lines</a><br><a onclick=setmode(2)>Rectangles</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div><input disabled value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
+    document.getElementById('page').innerHTML = '<div><div><a onclick=setmode(3)>Both</a><br><a onclick=setmode(1)>Lines</a><br><a onclick=setmode(2)>Rectangles</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
       + settings['randomize-key'] + '>Randomize</div><hr><div><label><input '
       + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-width value='
       + settings['line-width'] + '>Line Width<br><label><input '
