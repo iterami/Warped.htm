@@ -10,7 +10,6 @@ function draw(){
         );
     }
 
-    buffer.lineWidth = settings['line-width'];
     for(var object in objects){
         // Draw rectangles if not in lines mode.
         if(mode != 1){
@@ -110,6 +109,7 @@ function resize(){
     x = width / 2;
     mouse_x = x;
 
+    buffer.lineWidth = settings['line-width'];
     randomize_objects();
 }
 
