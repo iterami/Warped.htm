@@ -115,16 +115,22 @@ function resize(){
 
 // Save settings into window.localStorage if they differ from default.
 function save(){
-    if(document.getElementById('clear').checked){
-        window.localStorage.removeItem('Warped.htm-clear');
-        settings['clear'] = true;
+    var ids = [
+      'clear',
+      'mouse-lock',
+    ];
+    for(var id in ids){
+        if(document.getElementById(ids[id]).checked){
+            window.localStorage.removeItem('Warped.htm-' + ids[id]);
+            settings[ids[id]] = true;
 
-    }else{
-        settings['clear'] = false;
-        window.localStorage.setItem(
-          'Warped.htm-clear',
-          1
-        );
+        }else{
+            settings[ids[id]] = false;
+            window.localStorage.setItem(
+              'Warped.htm-' + ids[id],
+              1
+            );
+        }
     }
 
     if(isNaN(document.getElementById('line-width').value)
@@ -149,18 +155,6 @@ function save(){
         window.localStorage.setItem(
           'Warped.htm-randomize-key',
           settings['randomize-key']
-        );
-    }
-
-    if(document.getElementById('mouse-lock').checked){
-        window.localStorage.removeItem('Warped.htm-mouse-lock');
-        settings['mouse-lock'] = true;
-
-    }else{
-        settings['mouse-lock'] = false;
-        window.localStorage.setItem(
-          'Warped.htm-mouse-lock',
-          1
         );
     }
 
