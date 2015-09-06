@@ -120,12 +120,13 @@ function save(){
       'mouse-lock',
     ];
     for(var id in ids){
-        if(document.getElementById(ids[id]).checked){
+        var checked = document.getElementById(ids[id]).checked;
+        settings[ids[id]] = checked;
+
+        if(checked){
             window.localStorage.removeItem('Warped.htm-' + ids[id]);
-            settings[ids[id]] = true;
 
         }else{
-            settings[ids[id]] = false;
             window.localStorage.setItem(
               'Warped.htm-' + ids[id],
               1
