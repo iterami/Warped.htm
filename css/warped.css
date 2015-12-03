@@ -44,7 +44,8 @@ input{
 input[disabled]{
     border: 0;
 }
-input[type=checkbox]{
+input[type=checkbox],
+label{
     cursor: pointer;
 }
 .right{
