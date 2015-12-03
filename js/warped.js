@@ -34,8 +34,8 @@ function draw(){
             var dy = 0;
 
             if(settings['line-extra-length'] !== 0){
-                var dx = mouse_x - objects[object]['x'];
-                var dy = mouse_y - objects[object]['y'];
+                dx = mouse_x - objects[object]['x'];
+                dy = mouse_y - objects[object]['y'];
 
                 var length = Math.sqrt(dx * dx + dy * dy);
 
