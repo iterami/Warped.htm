@@ -29,9 +29,25 @@ function draw(){
               objects[object]['x'],
               objects[object]['y']
             );
+
+            var dx = 0;
+            var dy = 0;
+
+            if(settings['line-extra-length'] !== 0){
+                var dx = mouse_x - objects[object]['x'];
+                var dy = mouse_y - objects[object]['y'];
+
+                var length = Math.sqrt(dx * dx + dy * dy);
+
+                dx /= length;
+                dx *= settings['line-extra-length'];
+                dy /= length;
+                dy *= settings['line-extra-length'];
+            }
+
             buffer.lineTo(
-              mouse_x,
-              mouse_y
+              mouse_x + dx,
+              mouse_y + dy
             );
             buffer.closePath();
             buffer.strokeStyle = objects[object]['color'];
@@ -84,6 +100,7 @@ function reset(){
     }
 
     document.getElementById('clear').checked = true;
+    document.getElementById('line-extra-length').value = 0;
     document.getElementById('line-width').value = 1;
     document.getElementById('mouse-lock').checked = true;
     document.getElementById('number-of-objects').value = 100;
@@ -134,17 +151,22 @@ function save(){
         }
     }
 
-    if(isNaN(document.getElementById('line-width').value)
-      || document.getElementById('line-width').value < 2){
-        window.localStorage.removeItem('Warped.htm-line-width');
-        settings['line-width'] = 1;
+    ids = {
+      'line-extra-length': 0,
+      'line-width': 1,
+    };
+    for(id in ids){
+        if(isNaN(document.getElementById(id).value)){
+            window.localStorage.removeItem('Warped.htm-' + id);
+            settings[id] = ids[id];
 
-    }else{
-        settings['line-width'] = parseInt(document.getElementById('line-width').value);
-        window.localStorage.setItem(
-          'Warped.htm-line-width',
-          settings['line-width']
-        );
+        }else{
+            settings[id] = parseInt(document.getElementById(id).value);
+            window.localStorage.setItem(
+              'Warped.htm-' + id,
+              settings[id]
+            );
+        }
     }
 
     if(document.getElementById('randomize-key').value === 'R'){
@@ -207,7 +229,8 @@ function setmode(newmode){
 
     document.body.innerHTML = '<div><div><a onclick=setmode(3)>Both</a><br><a onclick=setmode(1)>Lines</a><br><a onclick=setmode(2)>Rectangles</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
       + settings['randomize-key'] + '>Randomize</div><hr><div><label><input '
-      + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-width value='
+      + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-extra-length value='
+      + settings['line-extra-length'] + '>Line Extra Length<br><input id=line-width value='
       + settings['line-width'] + '>Line Width<br><label><input '
       + (settings['mouse-lock'] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects value='
       + settings['number-of-objects'] + '>Objects<br><a onclick=reset()>Reset Settings</a></div></div>';
@@ -222,7 +245,8 @@ var mouse_x = 0;
 var mouse_y = 0;
 var settings = {
   'clear': window.localStorage.getItem('Warped.htm-clear') === null,
-  'line-width' : parseInt(window.localStorage.getItem('Warped.htm-line-width')) || 1,
+  'line-extra-length': parseInt(window.localStorage.getItem('Warped.htm-line-extra-length')) || 0,
+  'line-width': parseInt(window.localStorage.getItem('Warped.htm-line-width')) || 1,
   'randomize-key': window.localStorage.getItem('Warped.htm-randomize-key') || 'R',
   'mouse-lock': window.localStorage.getItem('Warped.htm-mouse-lock') === null,
   'number-of-objects': parseInt(window.localStorage.getItem('Warped.htm-number-of-objects')) || 100,
