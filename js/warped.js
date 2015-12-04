@@ -127,6 +127,7 @@ function resize(){
     mouse_x = x;
 
     buffer.lineWidth = settings['line-width'];
+    mouse_drag = false;
     randomize_objects();
 }
 
@@ -241,6 +242,7 @@ var canvas = 0;
 var height = 0;
 var objects = [];
 var mode = 0;
+var mouse_drag = false;
 var mouse_x = 0;
 var mouse_y = 0;
 var settings = {
@@ -283,6 +285,7 @@ window.onmousedown =
         return;
     }
 
+    mouse_drag = true;
     mouse_x = e.pageX;
     mouse_y = e.pageY;
 
@@ -291,7 +294,7 @@ window.onmousedown =
 
 window.onmousemove = function(e){
     if(mode <= 0
-      || !settings['mouse-lock']){
+      || (!settings['mouse-lock'] && !mouse_drag)){
         return;
     }
 
@@ -299,6 +302,10 @@ window.onmousemove = function(e){
     mouse_y = e.pageY;
 
     draw();
+};
+
+window.onmouseup = function(e){
+    mouse_drag = false;
 };
 
 window.onresize = resize;
