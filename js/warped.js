@@ -35,6 +35,17 @@ function draw(){
             var target_x = mouse_x - objects[object]['x'];
             var target_y = mouse_y - objects[object]['y'];
 
+            if(settings['line-fixed-length'] !== 0){
+                var length = Math.sqrt(
+                  target_x * target_x + target_y * target_y
+                );
+
+                target_x /= length;
+                target_x *= settings['line-fixed-length'];
+                target_y /= length;
+                target_y *= settings['line-fixed-length'];
+            }
+
             if(settings['line-length-multiplier'] !== 1){
                 target_x *= settings['line-length-multiplier'];
                 target_y *= settings['line-length-multiplier'];
@@ -110,6 +121,7 @@ function reset(){
 
     document.getElementById('clear').checked = true;
     document.getElementById('line-extra-length').value = 0;
+    document.getElementById('line-fixed-length').value = 0;
     document.getElementById('line-length-multiplier').value = 1;
     document.getElementById('line-width').value = 1;
     document.getElementById('mouse-lock').checked = true;
@@ -164,6 +176,7 @@ function save(){
 
     ids = {
       'line-extra-length': 0,
+      'line-fixed-length': 0,
       'line-length-multiplier': 1,
       'line-width': 1,
     };
@@ -243,7 +256,8 @@ function setmode(newmode){
     document.body.innerHTML = '<div><div><a onclick=setmode(3)>Both</a><br><a onclick=setmode(1)>Lines</a><br><a onclick=setmode(2)>Rectangles</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
       + settings['randomize-key'] + '>Randomize</div><hr><div><label><input '
       + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-extra-length value='
-      + settings['line-extra-length'] + '>Line Extra Length<br><input id=line-length-multiplier value='
+      + settings['line-extra-length'] + '>Line Extra Length<br><input id=line-fixed-length value='
+      + settings['line-fixed-length'] + '>Line Fixed Length<br><input id=line-length-multiplier value='
       + settings['line-length-multiplier'] + '>Line Length Multiplier<br><input id=line-width value='
       + settings['line-width'] + '>Line Width<br><label><input '
       + (settings['mouse-lock'] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects value='
@@ -261,6 +275,7 @@ var mouse_y = 0;
 var settings = {
   'clear': window.localStorage.getItem('Warped.htm-clear') === null,
   'line-extra-length': parseInt(window.localStorage.getItem('Warped.htm-line-extra-length')) || 0,
+  'line-fixed-length': parseInt(window.localStorage.getItem('Warped.htm-line-fixed-length')) || 0,
   'line-length-multiplier': parseInt(window.localStorage.getItem('Warped.htm-line-length-multiplier')) || 1,
   'line-width': parseInt(window.localStorage.getItem('Warped.htm-line-width')) || 1,
   'randomize-key': window.localStorage.getItem('Warped.htm-randomize-key') || 'R',
