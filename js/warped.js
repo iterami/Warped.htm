@@ -182,8 +182,8 @@ function save(){
     };
     for(id in ids){
         var value = document.getElementById(id).value;
-        if(isNaN(value)
-          || value == ids[id]){
+        if(value == ids[id]
+          || isNaN(value)){
             window.localStorage.removeItem('Warped.htm-' + id);
             settings[id] = ids[id];
 
@@ -210,8 +210,8 @@ function save(){
     }
 
     var number_of_objects = document.getElementById('number-of-objects').value;
-    if(isNaN(number_of_objects)
-      || number_of_objects == 100
+    if(number_of_objects == 100
+      || isNaN(number_of_objects)
       || number_of_objects < 1){
         window.localStorage.removeItem('Warped.htm-number-of-objects');
         settings['number-of-objects'] = 100;
