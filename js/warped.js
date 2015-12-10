@@ -181,13 +181,14 @@ function save(){
       'line-width': 1,
     };
     for(id in ids){
-        if(isNaN(document.getElementById(id).value)
-          || document.getElementById(id).value == ids[id]){
+        var value = document.getElementById(id).value;
+        if(isNaN(value)
+          || value == ids[id]){
             window.localStorage.removeItem('Warped.htm-' + id);
             settings[id] = ids[id];
 
         }else{
-            settings[id] = parseFloat(document.getElementById(id).value);
+            settings[id] = parseFloat(value);
             window.localStorage.setItem(
               'Warped.htm-' + id,
               settings[id]
@@ -195,26 +196,28 @@ function save(){
         }
     }
 
-    if(document.getElementById('randomize-key').value === 'R'){
+    var randomize_key = document.getElementById('randomize-key').value;
+    if(randomize_key === 'R'){
         window.localStorage.removeItem('Warped.htm-randomize-key');
         settings['randomize-key'] = 'R';
 
     }else{
-        settings['randomize-key'] = document.getElementById('randomize-key').value;
+        settings['randomize-key'] = randomize_key;
         window.localStorage.setItem(
           'Warped.htm-randomize-key',
           settings['randomize-key']
         );
     }
 
-    if(document.getElementById('number-of-objects').value == 100
-      || isNaN(document.getElementById('number-of-objects').value)
-      || document.getElementById('number-of-objects').value < 1){
+    var number_of_objects = document.getElementById('number-of-objects').value;
+    if(isNaN(number_of_objects)
+      || number_of_objects == 100
+      || number_of_objects < 1){
         window.localStorage.removeItem('Warped.htm-number-of-objects');
         settings['number-of-objects'] = 100;
 
     }else{
-        settings['number-of-objects'] = parseInt(document.getElementById('number-of-objects').value);
+        settings['number-of-objects'] = parseInt(number_of_objects);
         window.localStorage.setItem(
           'Warped.htm-number-of-objects',
           settings['number-of-objects']
