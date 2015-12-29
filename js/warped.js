@@ -119,14 +119,25 @@ function reset(){
         return;
     }
 
-    document.getElementById('clear').checked = true;
-    document.getElementById('line-extra-length').value = 0;
-    document.getElementById('line-fixed-length').value = 0;
-    document.getElementById('line-length-multiplier').value = 1;
-    document.getElementById('line-width').value = 1;
-    document.getElementById('mouse-lock').checked = true;
-    document.getElementById('number-of-objects').value = 100;
-    document.getElementById('randomize-key').value = 'R';
+    var ids = {
+      'clear': true,
+      'mouse-lock': true,
+    };
+    for(var id in ids){
+        document.getElementById(id).value = ids[id];
+    }
+
+    ids = {
+      'line-extra-length': 0,
+      'line-fixed-length': 0,
+      'line-length-multiplier': 1,
+      'line-width': 1,
+      'number-of-objects': 100,
+      'randomize-key': 'R',
+    };
+    for(var id in ids){
+        document.getElementById(id).value = ids[id];
+    }
 
     save();
 }
