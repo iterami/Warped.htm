@@ -207,13 +207,11 @@ function save(){
         }
     }
 
-    var randomize_key = document.getElementById('randomize-key').value;
-    if(randomize_key === 'R'){
+    settings['randomize-key'] = document.getElementById('randomize-key').value;
+    if(settings['randomize-key'] === 'R'){
         window.localStorage.removeItem('Warped.htm-randomize-key');
-        settings['randomize-key'] = 'R';
 
     }else{
-        settings['randomize-key'] = randomize_key;
         window.localStorage.setItem(
           'Warped.htm-randomize-key',
           settings['randomize-key']
