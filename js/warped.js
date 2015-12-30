@@ -195,7 +195,7 @@ function save(){
         var value = document.getElementById(id).value;
         settings[id] = parseFloat(value);
 
-        if(value == ids[id]
+        if(value === ids[id]
           || isNaN(value)){
             window.localStorage.removeItem('Warped.htm-' + id);
 
