@@ -192,11 +192,10 @@ function save(){
       'line-width': 1,
     };
     for(id in ids){
-        var value = document.getElementById(id).value;
-        settings[id] = parseFloat(value);
+        settings[id] = parseFloat(document.getElementById(id).value);
 
-        if(value === ids[id]
-          || isNaN(value)){
+        if(settings[id] === ids[id]
+          || isNaN(settings[id])){
             window.localStorage.removeItem('Warped.htm-' + id);
 
         }else{
