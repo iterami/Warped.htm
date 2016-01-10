@@ -124,7 +124,7 @@ function reset(){
       'mouse-lock': true,
     };
     for(var id in ids){
-        document.getElementById(id).value = ids[id];
+        document.getElementById(id).checked = ids[id];
     }
 
     ids = {
