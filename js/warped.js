@@ -293,8 +293,8 @@ var settings = {
   'mouse-lock': window.localStorage.getItem('Warped.htm-mouse-lock') === null,
   'number-of-objects': parseInt(window.localStorage.getItem('Warped.htm-number-of-objects')) || 100,
 };
-var x = 0;
 var width = 0;
+var x = 0;
 var y = 0;
 
 window.onkeydown = function(e){
