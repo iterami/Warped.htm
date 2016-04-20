@@ -225,7 +225,10 @@ function save(){
         settings['number-of-objects'] = 100;
 
     }else{
-        settings['number-of-objects'] = parseInt(number_of_objects);
+        settings['number-of-objects'] = parseInt(
+          number_of_objects,
+          10
+        );
         window.localStorage.setItem(
           'Warped.htm-number-of-objects',
           settings['number-of-objects']
@@ -285,13 +288,13 @@ var mouse_x = 0;
 var mouse_y = 0;
 var settings = {
   'clear': window.localStorage.getItem('Warped.htm-clear') === null,
-  'line-extra-length': parseInt(window.localStorage.getItem('Warped.htm-line-extra-length')) || 0,
-  'line-fixed-length': parseInt(window.localStorage.getItem('Warped.htm-line-fixed-length')) || 0,
-  'line-length-multiplier': parseInt(window.localStorage.getItem('Warped.htm-line-length-multiplier')) || 1,
-  'line-width': parseInt(window.localStorage.getItem('Warped.htm-line-width')) || 1,
+  'line-extra-length': parseInt(window.localStorage.getItem('Warped.htm-line-extra-length'), 10) || 0,
+  'line-fixed-length': parseInt(window.localStorage.getItem('Warped.htm-line-fixed-length'), 10) || 0,
+  'line-length-multiplier': parseInt(window.localStorage.getItem('Warped.htm-line-length-multiplier'), 10) || 1,
+  'line-width': parseInt(window.localStorage.getItem('Warped.htm-line-width'), 10) || 1,
   'randomize-key': window.localStorage.getItem('Warped.htm-randomize-key') || 'R',
   'mouse-lock': window.localStorage.getItem('Warped.htm-mouse-lock') === null,
-  'number-of-objects': parseInt(window.localStorage.getItem('Warped.htm-number-of-objects')) || 100,
+  'number-of-objects': parseInt(window.localStorage.getItem('Warped.htm-number-of-objects'), 10) || 100,
 };
 var width = 0;
 var x = 0;
