@@ -1,6 +1,7 @@
 'use strict';
 
-function draw(){
+function draw_logic(){
+    /*
     if(settings['clear']){
         buffer.clearRect(
           0,
@@ -9,6 +10,7 @@ function draw(){
           height
         );
     }
+    */
 
     for(var object in objects){
         // Draw rectangles if not in lines mode.
@@ -75,6 +77,7 @@ function draw(){
         }
     }
 
+    /*
     if(settings['clear']){
         canvas.clearRect(
           0,
@@ -83,11 +86,7 @@ function draw(){
           height
         );
     }
-    canvas.drawImage(
-      document.getElementById('buffer'),
-      0,
-      0
-    );
+    */
 }
 
 function random_hex(){
@@ -142,21 +141,8 @@ function reset(){
     save();
 }
 
-function resize(){
-    if(mode <= 0){
-        return;
-    }
-
-    height = window.innerHeight;
-    document.getElementById('buffer').height = height;
-    document.getElementById('canvas').height = height;
-    y = height / 2;
+function resize_logic(){
     mouse_y = y;
-
-    width = window.innerWidth;
-    document.getElementById('buffer').width = width;
-    document.getElementById('canvas').width = width;
-    x = width / 2;
     mouse_x = x;
 
     buffer.lineWidth = settings['line-width'];
@@ -236,53 +222,26 @@ function save(){
     }
 }
 
-function setmode(newmode){
-    mode = newmode;
+function setmode_logic(){
+    // Main menu mode.
+    if(mode === 0){
+        document.body.innerHTML = '<div><div><a onclick=setmode(3,true)>Both</a><br><a onclick=setmode(1,true)>Lines</a><br><a onclick=setmode(2,true)>Rectangles</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
+          + settings['randomize-key'] + '>Randomize</div><hr><div><label><input '
+          + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-extra-length value='
+          + settings['line-extra-length'] + '>Line Extra Length<br><input id=line-fixed-length value='
+          + settings['line-fixed-length'] + '>Line Fixed Length<br><input id=line-length-multiplier value='
+          + settings['line-length-multiplier'] + '>Line Length Multiplier<br><input id=line-width value='
+          + settings['line-width'] + '>Line Width<br><label><input '
+          + (settings['mouse-lock'] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects value='
+          + settings['number-of-objects'] + '>Objects<br><a onclick=reset()>Reset Settings</a></div></div>';
 
     // Visualization mode.
-    if(mode > 0){
+    }else{
         save();
-
-        document.body.innerHTML =
-          '<canvas id=canvas></canvas><canvas id=buffer></canvas>';
-
-        var contextAttributes = {
-          'alpha': false,
-        };
-        buffer = document.getElementById('buffer').getContext(
-          '2d',
-          contextAttributes
-        );
-        canvas = document.getElementById('canvas').getContext(
-          '2d',
-          contextAttributes
-        );
-
-        resize();
-
-        return;
     }
-
-    // Main menu mode.
-    buffer = 0;
-    canvas = 0;
-
-    document.body.innerHTML = '<div><div><a onclick=setmode(3)>Both</a><br><a onclick=setmode(1)>Lines</a><br><a onclick=setmode(2)>Rectangles</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
-      + settings['randomize-key'] + '>Randomize</div><hr><div><label><input '
-      + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-extra-length value='
-      + settings['line-extra-length'] + '>Line Extra Length<br><input id=line-fixed-length value='
-      + settings['line-fixed-length'] + '>Line Fixed Length<br><input id=line-length-multiplier value='
-      + settings['line-length-multiplier'] + '>Line Length Multiplier<br><input id=line-width value='
-      + settings['line-width'] + '>Line Width<br><label><input '
-      + (settings['mouse-lock'] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects value='
-      + settings['number-of-objects'] + '>Objects<br><a onclick=reset()>Reset Settings</a></div></div>';
 }
 
-var buffer = 0;
-var canvas = 0;
-var height = 0;
 var objects = [];
-var mode = 0;
 var mouse_drag = false;
 var mouse_x = 0;
 var mouse_y = 0;
@@ -296,9 +255,6 @@ var settings = {
   'mouse-lock': window.localStorage.getItem('Warped.htm-mouse-lock') === null,
   'number-of-objects': parseInt(window.localStorage.getItem('Warped.htm-number-of-objects'), 10) || 100,
 };
-var width = 0;
-var x = 0;
-var y = 0;
 
 window.onkeydown = function(e){
     if(mode <= 0){
@@ -317,10 +273,7 @@ window.onkeydown = function(e){
     }
 };
 
-window.onload = function(e){
-    resize();
-    setmode(0);
-};
+window.onload = init_canvas;
 
 window.onmousedown =
   window.ontouchstart = function(e){
@@ -350,5 +303,3 @@ window.onmousemove = function(e){
 window.onmouseup = function(e){
     mouse_drag = false;
 };
-
-window.onresize = resize;
