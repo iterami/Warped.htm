@@ -113,34 +113,6 @@ function randomize_objects(){
     draw();
 }
 
-function reset(){
-    if(!window.confirm('Reset settings?')){
-        return;
-    }
-
-    var ids = {
-      'clear': true,
-      'mouse-lock': true,
-    };
-    for(var id in ids){
-        document.getElementById(id).checked = ids[id];
-    }
-
-    ids = {
-      'line-extra-length': 0,
-      'line-fixed-length': 0,
-      'line-length-multiplier': 1,
-      'line-width': 1,
-      'number-of-objects': 100,
-      'randomize-key': 'R',
-    };
-    for(var id in ids){
-        document.getElementById(id).value = ids[id];
-    }
-
-    save();
-}
-
 function resize_logic(){
     mouse_y = y;
     mouse_x = x;
@@ -148,78 +120,6 @@ function resize_logic(){
     buffer.lineWidth = settings['line-width'];
     mouse_drag = false;
     randomize_objects();
-}
-
-// Save settings into window.localStorage if they differ from default.
-function save(){
-    var ids = [
-      'clear',
-      'mouse-lock',
-    ];
-    for(var id in ids){
-        var checked = document.getElementById(ids[id]).checked;
-        settings[ids[id]] = checked;
-
-        if(checked){
-            window.localStorage.removeItem('Warped.htm-' + ids[id]);
-
-        }else{
-            window.localStorage.setItem(
-              'Warped.htm-' + ids[id],
-              1
-            );
-        }
-    }
-
-    ids = {
-      'line-extra-length': 0,
-      'line-fixed-length': 0,
-      'line-length-multiplier': 1,
-      'line-width': 1,
-    };
-    for(id in ids){
-        settings[id] = parseFloat(document.getElementById(id).value);
-
-        if(settings[id] === ids[id]
-          || isNaN(settings[id])){
-            window.localStorage.removeItem('Warped.htm-' + id);
-
-        }else{
-            window.localStorage.setItem(
-              'Warped.htm-' + id,
-              settings[id]
-            );
-        }
-    }
-
-    settings['randomize-key'] = document.getElementById('randomize-key').value;
-    if(settings['randomize-key'] === 'R'){
-        window.localStorage.removeItem('Warped.htm-randomize-key');
-
-    }else{
-        window.localStorage.setItem(
-          'Warped.htm-randomize-key',
-          settings['randomize-key']
-        );
-    }
-
-    var number_of_objects = document.getElementById('number-of-objects').value;
-    if(number_of_objects == 100
-      || isNaN(number_of_objects)
-      || number_of_objects < 1){
-        window.localStorage.removeItem('Warped.htm-number-of-objects');
-        settings['number-of-objects'] = 100;
-
-    }else{
-        settings['number-of-objects'] = parseInt(
-          number_of_objects,
-          10
-        );
-        window.localStorage.setItem(
-          'Warped.htm-number-of-objects',
-          settings['number-of-objects']
-        );
-    }
 }
 
 function setmode_logic(){
@@ -245,16 +145,6 @@ var objects = [];
 var mouse_drag = false;
 var mouse_x = 0;
 var mouse_y = 0;
-var settings = {
-  'clear': window.localStorage.getItem('Warped.htm-clear') === null,
-  'line-extra-length': parseInt(window.localStorage.getItem('Warped.htm-line-extra-length'), 10) || 0,
-  'line-fixed-length': parseInt(window.localStorage.getItem('Warped.htm-line-fixed-length'), 10) || 0,
-  'line-length-multiplier': parseInt(window.localStorage.getItem('Warped.htm-line-length-multiplier'), 10) || 1,
-  'line-width': parseInt(window.localStorage.getItem('Warped.htm-line-width'), 10) || 1,
-  'randomize-key': window.localStorage.getItem('Warped.htm-randomize-key') || 'R',
-  'mouse-lock': window.localStorage.getItem('Warped.htm-mouse-lock') === null,
-  'number-of-objects': parseInt(window.localStorage.getItem('Warped.htm-number-of-objects'), 10) || 100,
-};
 
 window.onkeydown = function(e){
     if(mode <= 0){
@@ -273,7 +163,22 @@ window.onkeydown = function(e){
     }
 };
 
-window.onload = init_canvas;
+window.onload = function(){
+    init_settings(
+      'Warped.htm-',
+      {
+        'clear': true,
+        'line-extra-length': 0,
+        'line-fixed-length': 0,
+        'line-length-multiplier': 1,
+        'line-width': 1,
+        'randomize-key': 'R',
+        'mouse-lock': true,
+        'number-of-objects': 100,
+      }
+    );
+    init_canvas();
+};
 
 window.onmousedown =
   window.ontouchstart = function(e){
