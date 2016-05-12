@@ -1,17 +1,6 @@
 'use strict';
 
 function draw_logic(){
-    /*
-    if(settings['clear']){
-        buffer.clearRect(
-          0,
-          0,
-          width,
-          height
-        );
-    }
-    */
-
     for(var object in objects){
         // Draw rectangles if not in lines mode.
         if(mode != 1){
@@ -76,17 +65,6 @@ function draw_logic(){
             buffer.stroke();
         }
     }
-
-    /*
-    if(settings['clear']){
-        canvas.clearRect(
-          0,
-          0,
-          width,
-          height
-        );
-    }
-    */
 }
 
 function random_hex(){
@@ -126,8 +104,7 @@ function setmode_logic(){
     // Main menu mode.
     if(mode === 0){
         document.body.innerHTML = '<div><div><a onclick=setmode(3,true)>Both</a><br><a onclick=setmode(1,true)>Lines</a><br><a onclick=setmode(2,true)>Rectangles</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
-          + settings['randomize-key'] + '>Randomize</div><hr><div><label><input '
-          + (settings['clear'] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=line-extra-length value='
+          + settings['randomize-key'] + '>Randomize</div><hr><div><input id=line-extra-length value='
           + settings['line-extra-length'] + '>Line Extra Length<br><input id=line-fixed-length value='
           + settings['line-fixed-length'] + '>Line Fixed Length<br><input id=line-length-multiplier value='
           + settings['line-length-multiplier'] + '>Line Length Multiplier<br><input id=line-width value='
@@ -167,7 +144,6 @@ window.onload = function(){
     init_settings(
       'Warped.htm-',
       {
-        'clear': true,
         'line-extra-length': 0,
         'line-fixed-length': 0,
         'line-length-multiplier': 1,
