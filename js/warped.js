@@ -103,14 +103,18 @@ function resize_logic(){
 function setmode_logic(){
     // Main menu mode.
     if(mode === 0){
-        document.body.innerHTML = '<div><div><a onclick=setmode(3,true)>Both</a><br><a onclick=setmode(1,true)>Lines</a><br><a onclick=setmode(2,true)>Rectangles</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=randomize-key maxlength=1 value='
-          + settings['randomize-key'] + '>Randomize</div><hr><div><input id=line-extra-length value='
-          + settings['line-extra-length'] + '>Line Extra Length<br><input id=line-fixed-length value='
-          + settings['line-fixed-length'] + '>Line Fixed Length<br><input id=line-length-multiplier value='
-          + settings['line-length-multiplier'] + '>Line Length Multiplier<br><input id=line-width value='
-          + settings['line-width'] + '>Line Width<br><label><input '
-          + (settings['mouse-lock'] ? 'checked ' : '') + 'id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects value='
-          + settings['number-of-objects'] + '>Objects<br><a onclick=reset()>Reset Settings</a></div></div>';
+        document.body.innerHTML = '<div><div><a onclick=setmode(3,true)>Both</a><br>'
+          + '<a onclick=setmode(1,true)>Lines</a><br><a onclick=setmode(2,true)>Rectangles</a></div></div>'
+          + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
+          + '<input id=randomize-key maxlength=1>Randomize</div><hr>'
+          + '<div><input id=line-extra-length>Line Extra Length<br>'
+          + '<input id=line-fixed-length>Line Fixed Length<br>'
+          + '<input id=line-length-multiplier>Line Length Multiplier<br>'
+          + '<input id=line-width>Line Width<br>'
+          + '<label><input id=mouse-lock type=checkbox>Mouse Lock</label><br>'
+          + '<input id=number-of-objects>Objects<br>'
+          + '<a onclick=reset()>Reset Settings</a></div></div>';
+        update_settings();
 
     // Visualization mode.
     }else{
