@@ -26,23 +26,23 @@ function draw_logic(){
             var target_x = mouse_x - objects[object]['x'];
             var target_y = mouse_y - objects[object]['y'];
 
-            if(settings['line-fixed-length'] !== 0){
+            if(settings_settings['line-fixed-length'] !== 0){
                 var length = Math.sqrt(
                   target_x * target_x + target_y * target_y
                 );
 
                 target_x /= length;
-                target_x *= settings['line-fixed-length'];
+                target_x *= settings_settings['line-fixed-length'];
                 target_y /= length;
-                target_y *= settings['line-fixed-length'];
+                target_y *= settings_settings['line-fixed-length'];
             }
 
-            if(settings['line-length-multiplier'] !== 1){
-                target_x *= settings['line-length-multiplier'];
-                target_y *= settings['line-length-multiplier'];
+            if(settings_settings['line-length-multiplier'] !== 1){
+                target_x *= settings_settings['line-length-multiplier'];
+                target_y *= settings_settings['line-length-multiplier'];
             }
 
-            if(settings['line-extra-length'] !== 0){
+            if(settings_settings['line-extra-length'] !== 0){
                 extra_x = mouse_x - objects[object]['x'];
                 extra_y = mouse_y - objects[object]['y'];
 
@@ -51,9 +51,9 @@ function draw_logic(){
                 );
 
                 extra_x /= length;
-                extra_x *= settings['line-extra-length'];
+                extra_x *= settings_settings['line-extra-length'];
                 extra_y /= length;
-                extra_y *= settings['line-extra-length'];
+                extra_y *= settings_settings['line-extra-length'];
             }
 
             buffer.lineTo(
@@ -78,7 +78,7 @@ function random_hex(){
 function randomize_objects(){
     objects.length = 0;
 
-    var loop_counter = settings['number-of-objects'] - 1;
+    var loop_counter = settings_settings['number-of-objects'] - 1;
     do{
         // Create randomized object.
         objects.push({
@@ -95,7 +95,7 @@ function resize_logic(){
     mouse_y = y;
     mouse_x = x;
 
-    buffer.lineWidth = settings['line-width'];
+    buffer.lineWidth = settings_settings['line-width'];
     mouse_drag = false;
     randomize_objects();
 }
@@ -113,12 +113,12 @@ function setmode_logic(){
           + '<input id=line-width>Line Width<br>'
           + '<label><input id=mouse-lock type=checkbox>Mouse Lock</label><br>'
           + '<input id=number-of-objects>Objects<br>'
-          + '<a onclick=reset()>Reset Settings</a></div></div>';
-        update_settings();
+          + '<a onclick=settings_reset()>Reset Settings</a></div></div>';
+        settings_update();
 
     // Visualization mode.
     }else{
-        save();
+        settings_save();
     }
 }
 
@@ -134,8 +134,8 @@ window.onkeydown = function(e){
 
     var key = e.keyCode || e.which;
 
-    // settings['randomize-key']: randomize current objects.
-    if(String.fromCharCode(key) === settings['randomize-key']){
+    // settings_settings['randomize-key']: randomize current objects.
+    if(String.fromCharCode(key) === settings_settings['randomize-key']){
         randomize_objects();
 
     // ESC: return to the main menu.
@@ -145,7 +145,7 @@ window.onkeydown = function(e){
 };
 
 window.onload = function(){
-    init_settings(
+    settings_init(
       'Warped.htm-',
       {
         'line-extra-length': 0,
@@ -175,7 +175,7 @@ window.onmousedown =
 
 window.onmousemove = function(e){
     if(mode <= 0
-      || (!settings['mouse-lock'] && !mouse_drag)){
+      || (!settings_settings['mouse-lock'] && !mouse_drag)){
         return;
     }
 
