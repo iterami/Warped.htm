@@ -3,9 +3,9 @@
 function draw_logic(){
     for(var object in objects){
         // Draw rectangles if not in lines mode.
-        if(mode != 1){
-            buffer.fillStyle = objects[object]['color'];
-            buffer.fillRect(
+        if(canvas_mode != 1){
+            canvas_buffer.fillStyle = objects[object]['color'];
+            canvas_buffer.fillRect(
               objects[object]['x'],
               objects[object]['y'],
               objects[object]['x'] - mouse_x,
@@ -14,9 +14,9 @@ function draw_logic(){
         }
 
         // Draw lines if not in rectangles mode.
-        if(mode != 2){
-            buffer.beginPath();
-            buffer.moveTo(
+        if(canvas_mode != 2){
+            canvas_buffer.beginPath();
+            canvas_buffer.moveTo(
               objects[object]['x'],
               objects[object]['y']
             );
@@ -56,13 +56,13 @@ function draw_logic(){
                 extra_y *= settings_settings['line-extra-length'];
             }
 
-            buffer.lineTo(
+            canvas_buffer.lineTo(
               objects[object]['x'] + target_x + extra_x,
               objects[object]['y'] + target_y + extra_y
             );
-            buffer.closePath();
-            buffer.strokeStyle = objects[object]['color'];
-            buffer.stroke();
+            canvas_buffer.closePath();
+            canvas_buffer.strokeStyle = objects[object]['color'];
+            canvas_buffer.stroke();
         }
     }
 }
@@ -83,28 +83,28 @@ function randomize_objects(){
         // Create randomized object.
         objects.push({
           'color': random_hex(),
-          'x': Math.floor(Math.random() * width),
-          'y': Math.floor(Math.random() * height),
+          'x': Math.floor(Math.random() * canvas_width),
+          'y': Math.floor(Math.random() * canvas_height),
         });
     }while(loop_counter--);
 
-    draw();
+    canvas_draw();
 }
 
 function resize_logic(){
-    mouse_y = y;
-    mouse_x = x;
+    mouse_y = canvas_y;
+    mouse_x = canvas_x;
 
-    buffer.lineWidth = settings_settings['line-width'];
+    canvas_buffer.lineWidth = settings_settings['line-width'];
     mouse_drag = false;
     randomize_objects();
 }
 
 function setmode_logic(){
     // Main menu mode.
-    if(mode === 0){
-        document.body.innerHTML = '<div><div><a onclick=setmode(3,true)>Both</a><br>'
-          + '<a onclick=setmode(1,true)>Lines</a><br><a onclick=setmode(2,true)>Rectangles</a></div></div>'
+    if(canvas_mode === 0){
+        document.body.innerHTML = '<div><div><a onclick=canvas_setmode(3,true)>Both</a><br>'
+          + '<a onclick=canvas_setmode(1,true)>Lines</a><br><a onclick=canvas_setmode(2,true)>Rectangles</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
           + '<input id=randomize-key maxlength=1>Randomize</div><hr>'
           + '<div><input id=line-extra-length>Line Extra Length<br>'
@@ -128,7 +128,7 @@ var mouse_x = 0;
 var mouse_y = 0;
 
 window.onkeydown = function(e){
-    if(mode <= 0){
+    if(canvas_mode <= 0){
         return;
     }
 
@@ -140,7 +140,7 @@ window.onkeydown = function(e){
 
     // ESC: return to the main menu.
     }else if(key === 27){
-        setmode(0);
+        canvas_setmode(0);
     }
 };
 
@@ -157,12 +157,12 @@ window.onload = function(){
         'number-of-objects': 100,
       }
     );
-    init_canvas();
+    canvas_init();
 };
 
 window.onmousedown =
   window.ontouchstart = function(e){
-    if(mode <= 0){
+    if(canvas_mode <= 0){
         return;
     }
 
@@ -170,11 +170,11 @@ window.onmousedown =
     mouse_x = e.pageX;
     mouse_y = e.pageY;
 
-    draw();
+    canvas_draw();
 };
 
 window.onmousemove = function(e){
-    if(mode <= 0
+    if(canvas_mode <= 0
       || (!settings_settings['mouse-lock'] && !mouse_drag)){
         return;
     }
@@ -182,7 +182,7 @@ window.onmousemove = function(e){
     mouse_x = e.pageX;
     mouse_y = e.pageY;
 
-    draw();
+    canvas_draw();
 };
 
 window.onmouseup = function(e){
