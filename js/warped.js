@@ -67,14 +67,6 @@ function draw_logic(){
     }
 }
 
-function random_hex(){
-    var choices = '0123456789abcdef';
-    return '#'
-      + choices.charAt(Math.floor(Math.random() * 16))
-      + choices.charAt(Math.floor(Math.random() * 16))
-      + choices.charAt(Math.floor(Math.random() * 16));
-}
-
 function randomize_objects(){
     objects.length = 0;
 
@@ -83,8 +75,8 @@ function randomize_objects(){
         // Create randomized object.
         objects.push({
           'color': random_hex(),
-          'x': Math.floor(Math.random() * canvas_width),
-          'y': Math.floor(Math.random() * canvas_height),
+          'x': random_integer(canvas_width),
+          'y': random_integer(canvas_height),
         });
     }while(loop_counter--);
 
