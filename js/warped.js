@@ -114,10 +114,10 @@ function setmode_logic(){
     }
 }
 
-var objects = [];
 var mouse_drag = false;
 var mouse_x = 0;
 var mouse_y = 0;
+var objects = [];
 
 window.onkeydown = function(e){
     if(canvas_mode <= 0){
