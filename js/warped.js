@@ -144,9 +144,9 @@ window.onload = function(){
         'line-fixed-length': 0,
         'line-length-multiplier': 1,
         'line-width': 1,
-        'randomize-key': 'R',
         'mouse-lock': true,
         'number-of-objects': 100,
+        'randomize-key': 'R',
       }
     );
     canvas_init();
