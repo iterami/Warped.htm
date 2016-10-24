@@ -15,12 +15,6 @@ function draw_logic(){
 
         // Draw lines if not in rectangles mode.
         if(canvas_mode != 2){
-            canvas_buffer.beginPath();
-            canvas_buffer.moveTo(
-              objects[object]['x'],
-              objects[object]['y']
-            );
-
             var extra_x = 0;
             var extra_y = 0;
             var target_x = mouse_x - objects[object]['x'];
@@ -56,13 +50,23 @@ function draw_logic(){
                 extra_y *= settings_settings['line-extra-length'];
             }
 
-            canvas_buffer.lineTo(
-              objects[object]['x'] + target_x + extra_x,
-              objects[object]['y'] + target_y + extra_y
+            canvas_draw_path(
+              [
+                {
+                  'type': 'moveTo',
+                  'x': objects[object]['x'],
+                  'y': objects[object]['y'],
+                },
+                {
+                  'x': objects[object]['x'] + target_x + extra_x,
+                  'y': objects[object]['y'] + target_y + extra_y,
+                },
+              ],
+              {
+                'strokeStyle': objects[object]['color'],
+              },
+              'stroke'
             );
-            canvas_buffer.closePath();
-            canvas_buffer.strokeStyle = objects[object]['color'];
-            canvas_buffer.stroke();
         }
     }
 }
