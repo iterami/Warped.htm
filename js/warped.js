@@ -160,9 +160,9 @@ window.onkeydown = function(e){
 };
 
 window.onload = function(){
-    settings_init(
-      'Warped.htm-',
-      {
+    settings_init({
+      'prefix': 'Warped.htm-',
+      'settings': {
         'extra-length': 0,
         'fixed-length': 0,
         'length-multiplier': 1,
@@ -170,8 +170,8 @@ window.onload = function(){
         'mouse-lock': true,
         'number-of-objects': 100,
         'randomize-key': 'R',
-      }
-    );
+      },
+    });
     canvas_init();
 };
 
