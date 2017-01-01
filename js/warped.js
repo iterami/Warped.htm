@@ -98,8 +98,12 @@ function randomize_objects(){
         // Create randomized object.
         objects.push({
           'color': random_hex(),
-          'x': random_integer(canvas_width),
-          'y': random_integer(canvas_height),
+          'x': random_integer({
+            'max': canvas_width,
+          }),
+          'y': random_integer({
+            'max': canvas_height,
+          }),
         });
     }while(loop_counter--);
 
