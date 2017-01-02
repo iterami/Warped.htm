@@ -69,8 +69,12 @@ function draw_logic(){
                 extra_y *= settings_settings['extra-length'];
             }
 
-            canvas_draw_path(
-              [
+            canvas_draw_path({
+              'properties': {
+                'strokeStyle': objects[object]['color'],
+              },
+              'style': 'stroke',
+              'vertices': [
                 {
                   'type': 'moveTo',
                   'x': objects[object]['x'],
@@ -81,11 +85,7 @@ function draw_logic(){
                   'y': objects[object]['y'] + target_y + extra_y,
                 },
               ],
-              {
-                'strokeStyle': objects[object]['color'],
-              },
-              'stroke'
-            );
+            });
         }
     }
 }
@@ -122,8 +122,8 @@ function resize_logic(){
 function setmode_logic(){
     // Main menu mode.
     if(canvas_mode === 0){
-        document.body.innerHTML = '<div><div><a onclick=canvas_setmode(3,true)>Both</a><br>'
-          + '<a onclick=canvas_setmode(1,true)>Lines</a><br><a onclick=canvas_setmode(2,true)>Rectangles</a></div></div>'
+        document.body.innerHTML = '<div><div><a onclick=canvas_setmode({mode:3,newgame:true})>Both</a><br>'
+          + '<a onclick=canvas_setmode({mode:1,newgame:true})>Lines</a><br><a onclick=canvas_setmode({mode:2,newgame:true})>Rectangles</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
           + '<input id=randomize-key maxlength=1>Randomize</div><hr>'
           + '<div><input id=extra-length>Extra Length<br>'
@@ -159,7 +159,9 @@ window.onkeydown = function(e){
 
     // ESC: return to the main menu.
     }else if(key === 27){
-        canvas_setmode(0);
+        canvas_setmode({
+          'mode': 0,
+        });
     }
 };
 
