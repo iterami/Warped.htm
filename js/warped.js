@@ -179,33 +179,33 @@ window.onload = function(){
       },
     });
     canvas_init();
-};
 
-window.onmousedown =
-  window.ontouchstart = function(e){
-    if(canvas_mode <= 0){
-        return;
-    }
+    window.onmousedown =
+      window.ontouchstart = function(e){
+        if(canvas_mode <= 0){
+            return;
+        }
 
-    mouse_drag = true;
-    mouse_x = e.pageX;
-    mouse_y = e.pageY;
+        mouse_drag = true;
+        mouse_x = e.pageX;
+        mouse_y = e.pageY;
 
-    canvas_draw();
-};
+        canvas_draw();
+    };
 
-window.onmousemove = function(e){
-    if(canvas_mode <= 0
-      || (!settings_settings['mouse-lock'] && !mouse_drag)){
-        return;
-    }
+    window.onmousemove = function(e){
+        if(canvas_mode <= 0
+          || (!settings_settings['mouse-lock'] && !mouse_drag)){
+            return;
+        }
 
-    mouse_x = e.pageX;
-    mouse_y = e.pageY;
+        mouse_x = e.pageX;
+        mouse_y = e.pageY;
 
-    canvas_draw();
-};
+        canvas_draw();
+    };
 
-window.onmouseup = function(e){
-    mouse_drag = false;
+    window.onmouseup = function(e){
+        mouse_drag = false;
+    };
 };
