@@ -97,7 +97,7 @@ function randomize_objects(){
     do{
         // Create randomized object.
         objects.push({
-          'color': random_hex(),
+          'color': '#' + random_hex(),
           'x': random_integer({
             'max': canvas_width,
           }),
