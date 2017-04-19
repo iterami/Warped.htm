@@ -159,9 +159,7 @@ window.onkeydown = function(e){
 
     // ESC: return to the main menu.
     }else if(key === 27){
-        canvas_setmode({
-          'mode': 0,
-        });
+        canvas_setmode();
     }
 };
 
