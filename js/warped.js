@@ -97,11 +97,11 @@ function randomize_objects(){
     do{
         // Create randomized object.
         objects.push({
-          'color': '#' + random_hex(),
-          'x': random_integer({
+          'color': '#' + core_random_hex(),
+          'x': core_random_integer({
             'max': canvas_width,
           }),
-          'y': random_integer({
+          'y': core_random_integer({
             'max': canvas_height,
           }),
         });
