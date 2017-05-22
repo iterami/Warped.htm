@@ -8,19 +8,19 @@ function draw_logic(){
 
             var height = objects[object]['x'] - mouse_x;
             var width = objects[object]['y'] - mouse_y;
-            if(storage_data['fixed-length'] !== 0){
-                height = storage_data['fixed-length'];
-                width = storage_data['fixed-length'];
+            if(core_storage_data['fixed-length'] !== 0){
+                height = core_storage_data['fixed-length'];
+                width = core_storage_data['fixed-length'];
 
             }else{
-                if(storage_data['length-multiplier'] !== 1){
-                    height *= storage_data['length-multiplier'];
-                    width *= storage_data['length-multiplier'];
+                if(core_storage_data['length-multiplier'] !== 1){
+                    height *= core_storage_data['length-multiplier'];
+                    width *= core_storage_data['length-multiplier'];
                 }
 
-                if(storage_data['extra-length'] !== 0){
-                    height *= storage_data['extra-length'];
-                    width *= storage_data['extra-length'];
+                if(core_storage_data['extra-length'] !== 0){
+                    height *= core_storage_data['extra-length'];
+                    width *= core_storage_data['extra-length'];
                 }
             }
 
@@ -39,23 +39,23 @@ function draw_logic(){
             var target_x = mouse_x - objects[object]['x'];
             var target_y = mouse_y - objects[object]['y'];
 
-            if(storage_data['fixed-length'] !== 0){
+            if(core_storage_data['fixed-length'] !== 0){
                 var length = Math.sqrt(
                   target_x * target_x + target_y * target_y
                 );
 
                 target_x /= length;
-                target_x *= storage_data['fixed-length'];
+                target_x *= core_storage_data['fixed-length'];
                 target_y /= length;
-                target_y *= storage_data['fixed-length'];
+                target_y *= core_storage_data['fixed-length'];
             }
 
-            if(storage_data['length-multiplier'] !== 1){
-                target_x *= storage_data['length-multiplier'];
-                target_y *= storage_data['length-multiplier'];
+            if(core_storage_data['length-multiplier'] !== 1){
+                target_x *= core_storage_data['length-multiplier'];
+                target_y *= core_storage_data['length-multiplier'];
             }
 
-            if(storage_data['extra-length'] !== 0){
+            if(core_storage_data['extra-length'] !== 0){
                 extra_x = mouse_x - objects[object]['x'];
                 extra_y = mouse_y - objects[object]['y'];
 
@@ -64,9 +64,9 @@ function draw_logic(){
                 );
 
                 extra_x /= length;
-                extra_x *= storage_data['extra-length'];
+                extra_x *= core_storage_data['extra-length'];
                 extra_y /= length;
-                extra_y *= storage_data['extra-length'];
+                extra_y *= core_storage_data['extra-length'];
             }
 
             canvas_draw_path({
@@ -93,7 +93,7 @@ function draw_logic(){
 function randomize_objects(){
     objects.length = 0;
 
-    var loop_counter = storage_data['number-of-objects'] - 1;
+    var loop_counter = core_storage_data['number-of-objects'] - 1;
     do{
         // Create randomized object.
         objects.push({
@@ -114,7 +114,7 @@ function resize_logic(){
     mouse_y = canvas_y;
     mouse_x = canvas_x;
 
-    canvas_buffer.lineWidth = storage_data['line-width'];
+    canvas_buffer.lineWidth = core_storage_data['line-width'];
     mouse_drag = false;
     randomize_objects();
 }
@@ -132,12 +132,12 @@ function setmode_logic(){
           + '<input id=line-width>Line Width<br>'
           + '<label><input id=mouse-lock type=checkbox>Mouse Lock</label><br>'
           + '<input id=number-of-objects>Objects<br>'
-          + '<a onclick=storage_reset()>Reset Settings</a></div></div>';
-        storage_update();
+          + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
+        core_storage_update();
 
     // Visualization mode.
     }else{
-        storage_save();
+        core_storage_save();
     }
 }
 
@@ -153,8 +153,8 @@ window.onkeydown = function(e){
 
     var key = e.keyCode || e.which;
 
-    // storage_data['randomize-key']: randomize current objects.
-    if(String.fromCharCode(key) === storage_data['randomize-key']){
+    // core_storage_data['randomize-key']: randomize current objects.
+    if(String.fromCharCode(key) === core_storage_data['randomize-key']){
         randomize_objects();
 
     // ESC: return to the main menu.
@@ -164,7 +164,7 @@ window.onkeydown = function(e){
 };
 
 window.onload = function(){
-    storage_init({
+    core_storage_init({
       'data': {
         'extra-length': 0,
         'fixed-length': 0,
@@ -193,7 +193,7 @@ window.onload = function(){
 
     window.onmousemove = function(e){
         if(canvas_mode <= 0
-          || (!storage_data['mouse-lock'] && !mouse_drag)){
+          || (!core_storage_data['mouse-lock'] && !mouse_drag)){
             return;
         }
 
