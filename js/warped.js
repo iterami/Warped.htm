@@ -110,6 +110,51 @@ function randomize_objects(){
     canvas_draw();
 }
 
+function repo_init(){
+    core_storage_init({
+      'data': {
+        'extra-length': 0,
+        'fixed-length': 0,
+        'length-multiplier': 1,
+        'line-width': 1,
+        'mouse-lock': true,
+        'number-of-objects': 100,
+        'randomize-key': 'R',
+      },
+      'prefix': 'Warped.htm-',
+    });
+    canvas_init();
+
+    window.onmousedown =
+      window.ontouchstart = function(e){
+        if(canvas_mode <= 0){
+            return;
+        }
+
+        mouse_drag = true;
+        mouse_x = e.pageX;
+        mouse_y = e.pageY;
+
+        canvas_draw();
+    };
+
+    window.onmousemove = function(e){
+        if(canvas_mode <= 0
+          || (!core_storage_data['mouse-lock'] && !mouse_drag)){
+            return;
+        }
+
+        mouse_x = e.pageX;
+        mouse_y = e.pageY;
+
+        canvas_draw();
+    };
+
+    window.onmouseup = function(e){
+        mouse_drag = false;
+    };
+}
+
 function resize_logic(){
     mouse_y = canvas_y;
     mouse_x = canvas_x;
@@ -161,49 +206,4 @@ window.onkeydown = function(e){
     }else if(key === 27){
         canvas_setmode();
     }
-};
-
-window.onload = function(){
-    core_storage_init({
-      'data': {
-        'extra-length': 0,
-        'fixed-length': 0,
-        'length-multiplier': 1,
-        'line-width': 1,
-        'mouse-lock': true,
-        'number-of-objects': 100,
-        'randomize-key': 'R',
-      },
-      'prefix': 'Warped.htm-',
-    });
-    canvas_init();
-
-    window.onmousedown =
-      window.ontouchstart = function(e){
-        if(canvas_mode <= 0){
-            return;
-        }
-
-        mouse_drag = true;
-        mouse_x = e.pageX;
-        mouse_y = e.pageY;
-
-        canvas_draw();
-    };
-
-    window.onmousemove = function(e){
-        if(canvas_mode <= 0
-          || (!core_storage_data['mouse-lock'] && !mouse_drag)){
-            return;
-        }
-
-        mouse_x = e.pageX;
-        mouse_y = e.pageY;
-
-        canvas_draw();
-    };
-
-    window.onmouseup = function(e){
-        mouse_drag = false;
-    };
 };
