@@ -111,8 +111,8 @@ function randomize_objects(){
 }
 
 function repo_init(){
-    core_storage_init({
-      'data': {
+    core_repo_init({
+      'storage': {
         'extra-length': 0,
         'fixed-length': 0,
         'length-multiplier': 1,
@@ -121,13 +121,33 @@ function repo_init(){
         'number-of-objects': 100,
         'randomize-key': 'R',
       },
-      'prefix': 'Warped.htm-',
+      'title': 'Warped.htm',
     });
     canvas_init();
 
+    window.onkeydown = function(e){
+        if(canvas_mode <= 0){
+            return;
+        }
+
+        var key = e.keyCode || e.which;
+
+        // core_storage_data['randomize-key']: randomize current objects.
+        if(String.fromCharCode(key) === core_storage_data['randomize-key']){
+            randomize_objects();
+
+        }else if(key === 27){
+            core_escape();
+
+        }else if(key === 81){
+            canvas_menu_quit();
+        }
+    };
+
     window.onmousedown =
       window.ontouchstart = function(e){
-        if(canvas_mode <= 0){
+        if(canvas_mode <= 0
+          || core_menu_open){
             return;
         }
 
@@ -140,7 +160,8 @@ function repo_init(){
 
     window.onmousemove = function(e){
         if(canvas_mode <= 0
-          || (!core_storage_data['mouse-lock'] && !mouse_drag)){
+          || (!core_storage_data['mouse-lock'] && !mouse_drag)
+          || core_menu_open){
             return;
         }
 
@@ -190,20 +211,3 @@ var mouse_drag = false;
 var mouse_x = 0;
 var mouse_y = 0;
 var objects = [];
-
-window.onkeydown = function(e){
-    if(canvas_mode <= 0){
-        return;
-    }
-
-    var key = e.keyCode || e.which;
-
-    // core_storage_data['randomize-key']: randomize current objects.
-    if(String.fromCharCode(key) === core_storage_data['randomize-key']){
-        randomize_objects();
-
-    // ESC: return to the main menu.
-    }else if(key === 27){
-        canvas_setmode();
-    }
-};
