@@ -123,9 +123,6 @@ function repo_init(){
               });
           },
         },
-        81: {
-          'todo': canvas_menu_quit,
-        },
       },
       'menu': true,
       'mousebinds': {
@@ -140,12 +137,7 @@ function repo_init(){
         'mouse-lock': true,
         'number-of-objects': 100,
       },
-      'storage-menu': '<input id=extra-length>Extra Length<br>'
-          + '<input id=fixed-length>Fixed Length<br>'
-          + '<input id=length-multiplier>Length Multiplier<br>'
-          + '<input id=line-width>Line Width<br>'
-          + '<label><input id=mouse-lock type=checkbox>Mouse Lock</label><br>'
-          + '<input id=number-of-objects>Objects',
+      'storage-menu': '<input id=extra-length>Extra Length<br><input id=fixed-length>Fixed Length<br><input id=length-multiplier>Length Multiplier<br><input id=line-width>Line Width<br><label><input id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects>Objects',
       'title': 'Warped.htm',
     });
     canvas_init();
