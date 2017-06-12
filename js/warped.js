@@ -161,9 +161,6 @@ function repo_init(){
 }
 
 function resize_logic(){
-    core_mouse['x'] = canvas_y;
-    core_mouse['y'] = canvas_x;
-
     canvas_buffer.lineWidth = core_storage_data['line-width'];
     randomize_objects();
 }
