@@ -1,8 +1,10 @@
 'use strict';
 
 function draw_logic(){
+    canvas_buffer.lineWidth = core_storage_data['line-width'];
+
     for(var object in objects){
-        // Draw rectangles if not in lines mode.
+        // Draw rectangles if not in only lines mode.
         if(canvas_mode != 1){
             canvas_buffer.fillStyle = objects[object]['color'];
 
@@ -32,7 +34,7 @@ function draw_logic(){
             );
         }
 
-        // Draw lines if not in rectangles mode.
+        // Draw lines if not in only rectangles mode.
         if(canvas_mode != 2){
             var extra_x = 0;
             var extra_y = 0;
@@ -112,6 +114,7 @@ function randomize_objects(){
 
 function repo_init(){
     core_repo_init({
+      'info': '<a onclick=canvas_setmode({mode:3,newgame:true})>Both</a><br><a onclick=canvas_setmode({mode:1,newgame:true})>Lines</a><br><a onclick=canvas_setmode({mode:2,newgame:true})>Rectangles</a>',
       'keybinds': {
         72: {
           'todo': function(){
@@ -124,28 +127,10 @@ function repo_init(){
           'todo': canvas_menu_quit,
         },
       },
+      'menu': true,
       'mousebinds': {
-        'mousedown': {
-          'todo': function(){
-              if(canvas_mode <= 0
-                || core_menu_open){
-                  return;
-              }
-
-              canvas_draw();
-          },
-        },
-        'mousemove': {
-          'todo': function(){
-              if(canvas_mode <= 0
-                || (!core_storage_data['mouse-lock'] && !core_mouse['down'])
-                || core_menu_open){
-                  return;
-              }
-
-              canvas_draw();
-          },
-        },
+        'mousedown': {},
+        'mousemove': {},
       },
       'storage': {
         'extra-length': 0,
@@ -155,6 +140,12 @@ function repo_init(){
         'mouse-lock': true,
         'number-of-objects': 100,
       },
+      'storage-menu': '<input id=extra-length>Extra Length<br>'
+          + '<input id=fixed-length>Fixed Length<br>'
+          + '<input id=length-multiplier>Length Multiplier<br>'
+          + '<input id=line-width>Line Width<br>'
+          + '<label><input id=mouse-lock type=checkbox>Mouse Lock</label><br>'
+          + '<input id=number-of-objects>Objects',
       'title': 'Warped.htm',
     });
     canvas_init();
@@ -163,27 +154,6 @@ function repo_init(){
 function resize_logic(){
     canvas_buffer.lineWidth = core_storage_data['line-width'];
     randomize_objects();
-}
-
-function setmode_logic(){
-    // Main menu mode.
-    if(canvas_mode === 0){
-        document.getElementById('wrap').innerHTML = '<div><div><a onclick=canvas_setmode({mode:3,newgame:true})>Both</a><br>'
-          + '<a onclick=canvas_setmode({mode:1,newgame:true})>Lines</a><br><a onclick=canvas_setmode({mode:2,newgame:true})>Rectangles</a></div></div>'
-          + '<div class=right><div><input disabled value=ESC>Main Menu</div><hr>'
-          + '<div><input id=extra-length>Extra Length<br>'
-          + '<input id=fixed-length>Fixed Length<br>'
-          + '<input id=length-multiplier>Length Multiplier<br>'
-          + '<input id=line-width>Line Width<br>'
-          + '<label><input id=mouse-lock type=checkbox>Mouse Lock</label><br>'
-          + '<input id=number-of-objects>Objects<br>'
-          + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
-        core_storage_update();
-
-    // Visualization mode.
-    }else{
-        core_storage_save();
-    }
 }
 
 var objects = [];
