@@ -137,7 +137,7 @@ function repo_init(){
         'mouse-lock': true,
         'number-of-objects': 100,
       },
-      'storage-menu': '<input id=extra-length>Extra Length<br><input id=fixed-length>Fixed Length<br><input id=length-multiplier>Length Multiplier<br><input id=line-width>Line Width<br><label><input id=mouse-lock type=checkbox>Mouse Lock</label><br><input id=number-of-objects>Objects',
+      'storage-menu': '<table><tr><td><input id=extra-length><td>Extra Length<tr><td><input id=fixed-length><td>Fixed Length<tr><td><input id=length-multiplier><td>Length Multiplier<tr><td><input id=line-width><td>Line Width<tr><td><input id=mouse-lock type=checkbox><td>Mouse Lock<tr><td><input id=number-of-objects><td>Objects</table>',
       'title': 'Warped.htm',
     });
     canvas_init();
