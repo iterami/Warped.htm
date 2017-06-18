@@ -5,7 +5,7 @@ function draw_logic(){
 
     for(var object in objects){
         // Draw rectangles if not in only lines mode.
-        if(canvas_mode !== 1){
+        if(core_mode !== 1){
             canvas_buffer.fillStyle = objects[object]['color'];
 
             var height = objects[object]['x'] - core_mouse['x'];
@@ -35,7 +35,7 @@ function draw_logic(){
         }
 
         // Draw lines if not in only rectangles mode.
-        if(canvas_mode !== 2){
+        if(core_mode !== 2){
             var extra_x = 0;
             var extra_y = 0;
             var target_x = core_mouse['x'] - objects[object]['x'];
@@ -119,7 +119,7 @@ function repo_init(){
         72: {
           'todo': function(){
               canvas_setmode({
-                'mode': canvas_mode,
+                'mode': core_mode,
               });
           },
         },
