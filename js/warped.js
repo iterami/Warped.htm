@@ -5,7 +5,7 @@ function draw_logic(){
 
     for(var object in objects){
         // Draw rectangles if not in only lines mode.
-        if(canvas_mode != 1){
+        if(canvas_mode !== 1){
             canvas_buffer.fillStyle = objects[object]['color'];
 
             var height = objects[object]['x'] - core_mouse['x'];
@@ -35,7 +35,7 @@ function draw_logic(){
         }
 
         // Draw lines if not in only rectangles mode.
-        if(canvas_mode != 2){
+        if(canvas_mode !== 2){
             var extra_x = 0;
             var extra_y = 0;
             var target_x = core_mouse['x'] - objects[object]['x'];
@@ -114,12 +114,12 @@ function randomize_objects(){
 
 function repo_init(){
     core_repo_init({
-      'info': '<a onclick=canvas_setmode({mode:3,newgame:true})>Both</a><br><a onclick=canvas_setmode({mode:1,newgame:true})>Lines</a><br><a onclick=canvas_setmode({mode:2,newgame:true})>Rectangles</a>',
+      'info': '<a onclick=canvas_setmode({newgame:true})>Both</a><br><a onclick=canvas_setmode({mode:1,newgame:true})>Lines</a><br><a onclick=canvas_setmode({mode:2,newgame:true})>Rectangles</a>',
       'keybinds': {
         72: {
           'todo': function(){
               canvas_setmode({
-                'mode': 1,
+                'mode': canvas_mode,
               });
           },
         },
