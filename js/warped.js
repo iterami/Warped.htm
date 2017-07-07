@@ -92,26 +92,6 @@ function draw_logic(){
     }
 }
 
-function randomize_objects(){
-    objects.length = 0;
-
-    var loop_counter = core_storage_data['number-of-objects'] - 1;
-    do{
-        // Create randomized object.
-        objects.push({
-          'color': '#' + core_random_hex(),
-          'x': core_random_integer({
-            'max': canvas_width,
-          }),
-          'y': core_random_integer({
-            'max': canvas_height,
-          }),
-        });
-    }while(loop_counter--);
-
-    canvas_draw();
-}
-
 function repo_init(){
     core_repo_init({
       'info': '<a onclick=canvas_setmode({newgame:true})>Both</a><br><a onclick=canvas_setmode({mode:1,newgame:true})>Lines</a><br><a onclick=canvas_setmode({mode:2,newgame:true})>Rectangles</a>',
@@ -145,7 +125,6 @@ function repo_init(){
 
 function resize_logic(){
     canvas_buffer.lineWidth = core_storage_data['line-width'];
-    randomize_objects();
 }
 
 var objects = [];
