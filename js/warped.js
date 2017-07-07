@@ -94,7 +94,7 @@ function draw_logic(){
 
 function repo_init(){
     core_repo_init({
-      'info': '<a onclick=canvas_setmode({newgame:true})>Both</a><br><a onclick=canvas_setmode({mode:1,newgame:true})>Lines</a><br><a onclick=canvas_setmode({mode:2,newgame:true})>Rectangles</a>',
+      'info': '<input onclick=canvas_setmode({newgame:true}) type=button value=Both><input onclick=canvas_setmode({mode:1,newgame:true}) type=button value=Lines><input onclick=canvas_setmode({mode:2,newgame:true}) type=button value=Rectangles>',
       'keybinds': {
         72: {
           'todo': function(){
