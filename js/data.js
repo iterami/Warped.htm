@@ -1,7 +1,7 @@
 'use strict';
 
 function load_data(){
-    core_entities.length = 0;
+    core_entities = {};
 
     var loop_counter = core_storage_data['number-of-entities'] - 1;
     do{
