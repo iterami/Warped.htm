@@ -3,13 +3,13 @@
 function draw_logic(){
     canvas_buffer.lineWidth = core_storage_data['line-width'];
 
-    for(var object in objects){
+    for(var entity in core_entities){
         // Draw rectangles if not in only lines mode.
         if(core_mode !== 1){
-            canvas_buffer.fillStyle = objects[object]['color'];
+            canvas_buffer.fillStyle = core_entities[entity]['color'];
 
-            var height = objects[object]['x'] - core_mouse['x'];
-            var width = objects[object]['y'] - core_mouse['y'];
+            var height = core_entities[entity]['x'] - core_mouse['x'];
+            var width = core_entities[entity]['y'] - core_mouse['y'];
             if(core_storage_data['fixed-length'] !== 0){
                 height = core_storage_data['fixed-length'];
                 width = core_storage_data['fixed-length'];
@@ -27,8 +27,8 @@ function draw_logic(){
             }
 
             canvas_buffer.fillRect(
-              objects[object]['x'],
-              objects[object]['y'],
+              core_entities[entity]['x'],
+              core_entities[entity]['y'],
               height,
               width
             );
@@ -38,8 +38,8 @@ function draw_logic(){
         if(core_mode !== 2){
             var extra_x = 0;
             var extra_y = 0;
-            var target_x = core_mouse['x'] - objects[object]['x'];
-            var target_y = core_mouse['y'] - objects[object]['y'];
+            var target_x = core_mouse['x'] - core_entities[entity]['x'];
+            var target_y = core_mouse['y'] - core_entities[entity]['y'];
 
             if(core_storage_data['fixed-length'] !== 0){
                 var length = Math.sqrt(
@@ -58,8 +58,8 @@ function draw_logic(){
             }
 
             if(core_storage_data['extra-length'] !== 0){
-                extra_x = core_mouse['x'] - objects[object]['x'];
-                extra_y = core_mouse['y'] - objects[object]['y'];
+                extra_x = core_mouse['x'] - core_entities[entity]['x'];
+                extra_y = core_mouse['y'] - core_entities[entity]['y'];
 
                 var length = Math.sqrt(
                   extra_x * extra_x + extra_y * extra_y
@@ -73,18 +73,18 @@ function draw_logic(){
 
             canvas_draw_path({
               'properties': {
-                'strokeStyle': objects[object]['color'],
+                'strokeStyle': core_entities[entity]['color'],
               },
               'style': 'stroke',
               'vertices': [
                 {
                   'type': 'moveTo',
-                  'x': objects[object]['x'],
-                  'y': objects[object]['y'],
+                  'x': core_entities[entity]['x'],
+                  'y': core_entities[entity]['y'],
                 },
                 {
-                  'x': objects[object]['x'] + target_x + extra_x,
-                  'y': objects[object]['y'] + target_y + extra_y,
+                  'x': core_entities[entity]['x'] + target_x + extra_x,
+                  'y': core_entities[entity]['y'] + target_y + extra_y,
                 },
               ],
             });
@@ -115,9 +115,9 @@ function repo_init(){
         'length-multiplier': 1,
         'line-width': 1,
         'mouse-lock': true,
-        'number-of-objects': 100,
+        'number-of-entities': 100,
       },
-      'storage-menu': '<table><tr><td><input id=extra-length><td>Extra Length<tr><td><input id=fixed-length><td>Fixed Length<tr><td><input id=length-multiplier><td>Length Multiplier<tr><td><input id=line-width><td>Line Width<tr><td><input id=mouse-lock type=checkbox><td>Mouse Lock<tr><td><input id=number-of-objects><td>Objects</table>',
+      'storage-menu': '<table><tr><td><input id=extra-length><td>Extra Length<tr><td><input id=fixed-length><td>Fixed Length<tr><td><input id=length-multiplier><td>Length Multiplier<tr><td><input id=line-width><td>Line Width<tr><td><input id=mouse-lock type=checkbox><td>Mouse Lock<tr><td><input id=number-of-entities><td>Entities</table>',
       'title': 'Warped.htm',
     });
     canvas_init();
@@ -126,5 +126,3 @@ function repo_init(){
 function resize_logic(){
     canvas_buffer.lineWidth = core_storage_data['line-width'];
 }
-
-var objects = [];
