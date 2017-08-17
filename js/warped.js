@@ -10,7 +10,11 @@ function draw_logic(){
       'todo': function(entity){
           // Draw rectangles if not in only lines mode.
           if(core_mode !== 1){
-              canvas_buffer.fillStyle = core_entities[entity]['color'];
+              canvas_setproperties({
+                'properties': {
+                  'fillStyle': core_entities[entity]['color'],
+                },
+              });
 
               var height = core_entities[entity]['x'] - core_mouse['x'];
               var width = core_entities[entity]['y'] - core_mouse['y'];
@@ -126,8 +130,4 @@ function repo_init(){
       'title': 'Warped.htm',
     });
     canvas_init();
-}
-
-function resize_logic(){
-    canvas_buffer.lineWidth = core_storage_data['line-width'];
 }
