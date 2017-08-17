@@ -1,8 +1,6 @@
 'use strict';
 
 function draw_logic(){
-    canvas_buffer.lineWidth = core_storage_data['line-width'];
-
     core_group_modify({
       'groups': [
         'canvas',
