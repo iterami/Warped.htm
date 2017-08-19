@@ -109,7 +109,6 @@ function repo_init(){
                 'newgame': true,
               });
           },
-          'type': 'onclick',
         },
         'lines': {
           'todo': function(){
@@ -118,7 +117,6 @@ function repo_init(){
                 'newgame': true,
               });
           },
-          'type': 'onclick',
         },
         'rectangles': {
           'todo': function(){
@@ -127,7 +125,6 @@ function repo_init(){
                 'newgame': true,
               });
           },
-          'type': 'onclick',
         },
       },
       'keybinds': {
