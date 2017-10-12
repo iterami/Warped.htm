@@ -14,10 +14,10 @@ function load_data(){
           'properties': {
             'color': '#' + core_random_hex(),
             'x': core_random_integer({
-              'max': canvas_width,
+              'max': canvas_properties['width'],
             }),
             'y': core_random_integer({
-              'max': canvas_height,
+              'max': canvas_properties['height'],
             }),
           },
         });
