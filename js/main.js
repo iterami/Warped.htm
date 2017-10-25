@@ -101,17 +101,16 @@ function draw_logic(){
 
 function repo_init(){
     core_repo_init({
-      'info': '<input id=both type=button value=Both><input id=lines type=button value=Lines><input id=rectangles type=button value=Rectangles>',
-      'info-events': {
+      'events': {
         'both': {
-          'todo': function(){
+          'onclick': function(){
               canvas_setmode({
                 'newgame': true,
               });
           },
         },
         'lines': {
-          'todo': function(){
+          'onclick': function(){
               canvas_setmode({
                 'mode': 1,
                 'newgame': true,
@@ -119,7 +118,7 @@ function repo_init(){
           },
         },
         'rectangles': {
-          'todo': function(){
+          'onclick': function(){
               canvas_setmode({
                 'mode': 2,
                 'newgame': true,
@@ -127,6 +126,7 @@ function repo_init(){
           },
         },
       },
+      'info': '<input id=both type=button value=Both><input id=lines type=button value=Lines><input id=rectangles type=button value=Rectangles>',
       'keybinds': {
         72: {
           'todo': function(){
