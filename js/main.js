@@ -14,8 +14,8 @@ function draw_logic(){
                 },
               });
 
-              var height = core_entities[entity]['x'] - core_mouse['x'];
-              var width = core_entities[entity]['y'] - core_mouse['y'];
+              let height = core_entities[entity]['x'] - core_mouse['x'];
+              let width = core_entities[entity]['y'] - core_mouse['y'];
               if(core_storage_data['fixed-length'] !== 0){
                   height = core_storage_data['fixed-length'];
                   width = core_storage_data['fixed-length'];
@@ -42,13 +42,13 @@ function draw_logic(){
 
           // Draw lines if not in only rectangles mode.
           if(core_mode !== 2){
-              var extra_x = 0;
-              var extra_y = 0;
-              var target_x = core_mouse['x'] - core_entities[entity]['x'];
-              var target_y = core_mouse['y'] - core_entities[entity]['y'];
+              let extra_x = 0;
+              let extra_y = 0;
+              let target_x = core_mouse['x'] - core_entities[entity]['x'];
+              let target_y = core_mouse['y'] - core_entities[entity]['y'];
 
               if(core_storage_data['fixed-length'] !== 0){
-                  var length = Math.sqrt(
+                  let length = Math.sqrt(
                     target_x * target_x + target_y * target_y
                   );
 
@@ -67,7 +67,7 @@ function draw_logic(){
                   extra_x = core_mouse['x'] - core_entities[entity]['x'];
                   extra_y = core_mouse['y'] - core_entities[entity]['y'];
 
-                  var length = Math.sqrt(
+                  let length = Math.sqrt(
                     extra_x * extra_x + extra_y * extra_y
                   );
 

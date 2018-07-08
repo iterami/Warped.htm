@@ -7,7 +7,7 @@ function load_data(){
       },
     });
 
-    var loop_counter = core_storage_data['number-of-entities'] - 1;
+    let loop_counter = core_storage_data['number-of-entities'] - 1;
     do{
         // Create randomized entity.
         core_entity_create({
