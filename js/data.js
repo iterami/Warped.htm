@@ -11,6 +11,7 @@ function load_data(){
     do{
         // Create randomized entity.
         core_entity_create({
+          'id': loop_counter,
           'properties': {
             'color': '#' + core_random_hex(),
             'x': core_random_integer({
