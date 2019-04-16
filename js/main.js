@@ -1,6 +1,12 @@
 'use strict';
 
 function draw_logic(){
+    if(core_storage_data['mouse-lock']
+      || core_mouse['down-0']){
+        mouse_x = core_mouse['x'];
+        mouse_y = core_mouse['y'];
+    }
+
     core_group_modify({
       'groups': [
         'canvas',
@@ -14,8 +20,8 @@ function draw_logic(){
                 },
               });
 
-              let height = core_entities[entity]['x'] - core_mouse['x'];
-              let width = core_entities[entity]['y'] - core_mouse['y'];
+              let height = core_entities[entity]['x'] - mouse_x;
+              let width = core_entities[entity]['y'] - mouse_y;
               if(core_storage_data['fixed-length'] !== 0){
                   height = core_storage_data['fixed-length'];
                   width = core_storage_data['fixed-length'];
@@ -44,8 +50,8 @@ function draw_logic(){
           if(core_mode !== 2){
               let extra_x = 0;
               let extra_y = 0;
-              let target_x = core_mouse['x'] - core_entities[entity]['x'];
-              let target_y = core_mouse['y'] - core_entities[entity]['y'];
+              let target_x = mouse_x - core_entities[entity]['x'];
+              let target_y = mouse_y - core_entities[entity]['y'];
 
               if(core_storage_data['fixed-length'] !== 0){
                   let length = Math.sqrt(
@@ -64,8 +70,8 @@ function draw_logic(){
               }
 
               if(core_storage_data['extra-length'] !== 0){
-                  extra_x = core_mouse['x'] - core_entities[entity]['x'];
-                  extra_y = core_mouse['y'] - core_entities[entity]['y'];
+                  extra_x = mouse_x - core_entities[entity]['x'];
+                  extra_y = mouse_y - core_entities[entity]['y'];
 
                   let length = Math.sqrt(
                     extra_x * extra_x + extra_y * extra_y
@@ -125,6 +131,10 @@ function repo_init(){
               });
           },
         },
+      },
+      'globals': {
+        'mouse_x': 0,
+        'mouse_y': 0,
       },
       'info': '<input id=both type=button value=Both><input id=lines type=button value=Lines><input id=rectangles type=button value=Rectangles>',
       'keybinds': {
