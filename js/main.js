@@ -13,7 +13,7 @@ function draw_logic(){
       ],
       'todo': function(entity){
           // Draw rectangles if not in only lines mode.
-          if(core_mode !== 1){
+          if(core_storage_data['mode'] !== 'lines'){
               canvas_setproperties({
                 'properties': {
                   'fillStyle': core_entities[entity]['color'],
@@ -47,7 +47,7 @@ function draw_logic(){
           }
 
           // Draw lines if not in only rectangles mode.
-          if(core_mode !== 2){
+          if(core_storage_data['mode'] !== 'rectangles'){
               let extra_x = 0;
               let extra_y = 0;
               let target_x = mouse_x - core_entities[entity]['x'];
@@ -110,25 +110,8 @@ function repo_init(){
       'events': {
         'both': {
           'onclick': function(){
-              canvas_setmode({
-                'newgame': true,
-              });
-          },
-        },
-        'lines': {
-          'onclick': function(){
-              canvas_setmode({
-                'mode': 1,
-                'newgame': true,
-              });
-          },
-        },
-        'rectangles': {
-          'onclick': function(){
-              canvas_setmode({
-                'mode': 2,
-                'newgame': true,
-              });
+              canvas_setmode();
+              core_escape();
           },
         },
       },
@@ -136,17 +119,12 @@ function repo_init(){
         'mouse_x': 0,
         'mouse_y': 0,
       },
-      'info': '<input id=both type=button value=Both><input id=lines type=button value=Lines><input id=rectangles type=button value=Rectangles>',
+      'info': '<input id=both type=button value=Randomize>',
       'keybinds': {
         72: {
-          'todo': function(){
-              canvas_setmode({
-                'mode': core_mode,
-              });
-          },
+          'todo': canvas_setmode,
         },
       },
-      'menu': true,
       'mousebinds': {
         'mousedown': {},
         'mousemove': {},
@@ -156,6 +134,7 @@ function repo_init(){
         'fixed-length': 0,
         'length-multiplier': 1,
         'line-width': 1,
+        'mode': 'both',
         'mouse-lock': true,
         'number-of-entities': 100,
       },
@@ -164,6 +143,7 @@ function repo_init(){
         + '<tr><td><input id=fixed-length><td>Fixed Length'
         + '<tr><td><input id=length-multiplier><td>Length Multiplier'
         + '<tr><td><input id=line-width><td>Line Width'
+        + '<tr><td><select id=mode><option value=both>Both</option><option value=lines>Lines</option><option value=rectangles>Rectangles</option></select><td>Mode'
         + '<tr><td><input id=mouse-lock type=checkbox><td>Mouse Lock</table>',
       'title': 'Warped.htm',
     });
