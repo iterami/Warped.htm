@@ -7,7 +7,7 @@ function draw_logic(){
         mouse_y = core_mouse['y'];
     }
 
-    core_group_modify({
+    entity_group_modify({
       'groups': [
         'canvas',
       ],
@@ -16,12 +16,12 @@ function draw_logic(){
           if(core_storage_data['mode'] !== 'lines'){
               canvas_setproperties({
                 'properties': {
-                  'fillStyle': core_entities[entity]['color'],
+                  'fillStyle': entity_entities[entity]['color'],
                 },
               });
 
-              let height = core_entities[entity]['x'] - mouse_x;
-              let width = core_entities[entity]['y'] - mouse_y;
+              let height = entity_entities[entity]['x'] - mouse_x;
+              let width = entity_entities[entity]['y'] - mouse_y;
               if(core_storage_data['fixed-length'] !== 0){
                   height = core_storage_data['fixed-length'];
                   width = core_storage_data['fixed-length'];
@@ -39,8 +39,8 @@ function draw_logic(){
               }
 
               canvas_buffer.fillRect(
-                core_entities[entity]['x'],
-                core_entities[entity]['y'],
+                entity_entities[entity]['x'],
+                entity_entities[entity]['y'],
                 height,
                 width
               );
@@ -50,8 +50,8 @@ function draw_logic(){
           if(core_storage_data['mode'] !== 'rectangles'){
               let extra_x = 0;
               let extra_y = 0;
-              let target_x = mouse_x - core_entities[entity]['x'];
-              let target_y = mouse_y - core_entities[entity]['y'];
+              let target_x = mouse_x - entity_entities[entity]['x'];
+              let target_y = mouse_y - entity_entities[entity]['y'];
 
               if(core_storage_data['fixed-length'] !== 0){
                   let length = Math.sqrt(
@@ -70,8 +70,8 @@ function draw_logic(){
               }
 
               if(core_storage_data['extra-length'] !== 0){
-                  extra_x = mouse_x - core_entities[entity]['x'];
-                  extra_y = mouse_y - core_entities[entity]['y'];
+                  extra_x = mouse_x - entity_entities[entity]['x'];
+                  extra_y = mouse_y - entity_entities[entity]['y'];
 
                   let length = Math.sqrt(
                     extra_x * extra_x + extra_y * extra_y
@@ -85,18 +85,18 @@ function draw_logic(){
 
               canvas_draw_path({
                 'properties': {
-                  'strokeStyle': core_entities[entity]['color'],
+                  'strokeStyle': entity_entities[entity]['color'],
                 },
                 'style': 'stroke',
                 'vertices': [
                   {
                     'type': 'moveTo',
-                    'x': core_entities[entity]['x'],
-                    'y': core_entities[entity]['y'],
+                    'x': entity_entities[entity]['x'],
+                    'y': entity_entities[entity]['y'],
                   },
                   {
-                    'x': core_entities[entity]['x'] + target_x + extra_x,
-                    'y': core_entities[entity]['y'] + target_y + extra_y,
+                    'x': entity_entities[entity]['x'] + target_x + extra_x,
+                    'y': entity_entities[entity]['y'] + target_y + extra_y,
                   },
                 ],
               });
