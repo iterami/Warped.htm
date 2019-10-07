@@ -108,27 +108,20 @@ function draw_logic(){
 function repo_init(){
     core_repo_init({
       'events': {
-        'both': {
-          'onclick': function(){
-              canvas_setmode();
-              core_escape();
-          },
+        'randomize': {
+          'onclick': core_repo_reset,
         },
       },
       'globals': {
         'mouse_x': 0,
         'mouse_y': 0,
       },
-      'info': '<input id=both type=button value=Randomize>',
-      'keybinds': {
-        72: {
-          'todo': canvas_setmode,
-        },
-      },
+      'info': '<input id=randomize type=button value=Randomize>',
       'mousebinds': {
         'mousedown': {},
         'mousemove': {},
       },
+      'reset': canvas_setmode,
       'storage': {
         'extra-length': 0,
         'fixed-length': 0,
