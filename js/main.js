@@ -54,7 +54,7 @@ function draw_logic(){
               let target_y = mouse_y - entity_entities[entity]['y'];
 
               if(core_storage_data['fixed-length'] !== 0){
-                  let length = Math.sqrt(
+                  const length = Math.sqrt(
                     target_x * target_x + target_y * target_y
                   );
 
@@ -73,7 +73,7 @@ function draw_logic(){
                   extra_x = mouse_x - entity_entities[entity]['x'];
                   extra_y = mouse_y - entity_entities[entity]['y'];
 
-                  let length = Math.sqrt(
+                  const length = Math.sqrt(
                     extra_x * extra_x + extra_y * extra_y
                   );
 
