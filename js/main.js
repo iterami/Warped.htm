@@ -1,6 +1,6 @@
 'use strict';
 
-function draw_logic(){
+function repo_drawlogic(){
     if(core_storage_data['mouse-lock']
       || core_mouse['down-0']){
         mouse_x = core_mouse['x'];
