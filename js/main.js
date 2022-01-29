@@ -12,7 +12,6 @@ function repo_drawlogic(){
         'canvas',
       ],
       'todo': function(entity){
-          // Draw rectangles if not in only lines mode.
           if(core_storage_data['mode'] !== 'lines'){
               canvas_setproperties({
                 'properties': {
@@ -46,7 +45,6 @@ function repo_drawlogic(){
               );
           }
 
-          // Draw lines if not in only rectangles mode.
           if(core_storage_data['mode'] !== 'rectangles'){
               let extra_x = 0;
               let extra_y = 0;

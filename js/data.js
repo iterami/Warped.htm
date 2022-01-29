@@ -9,7 +9,6 @@ function load_data(){
 
     let loop_counter = core_storage_data['number-of-entities'] - 1;
     do{
-        // Create randomized entity.
         entity_create({
           'properties': {
             'color': '#' + core_random_hex(),
