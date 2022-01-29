@@ -129,11 +129,11 @@ function repo_init(){
         'mouse-lock': true,
         'number-of-entities': 100,
       },
-      'storage-menu': '<table><tr><td><input id=number-of-entities><td>Entities'
-        + '<tr><td><input id=extra-length><td>Extra Length'
-        + '<tr><td><input id=fixed-length><td>Fixed Length'
-        + '<tr><td><input id=length-multiplier><td>Length Multiplier'
-        + '<tr><td><input id=line-width><td>Line Width'
+      'storage-menu': '<table><tr><td><input id=number-of-entities min=1 type=number><td>Entities'
+        + '<tr><td><input id=extra-length type=number><td>Extra Length'
+        + '<tr><td><input id=fixed-length type=number><td>Fixed Length'
+        + '<tr><td><input id=length-multiplier type=number><td>Length Multiplier'
+        + '<tr><td><input id=line-width type=number><td>Line Width'
         + '<tr><td><select id=mode><option value=both>Both</option><option value=lines>Lines</option><option value=rectangles>Rectangles</option></select><td>Mode'
         + '<tr><td><input id=mouse-lock type=checkbox><td>Mouse Lock</table>',
       'title': 'Warped.htm',
