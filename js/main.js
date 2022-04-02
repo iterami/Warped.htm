@@ -138,5 +138,7 @@ function repo_init(){
         + '<tr><td><input id=mouse-lock type=checkbox><td>Mouse Lock</table>',
       'title': 'Warped.htm',
     });
-    canvas_init();
+    canvas_init({
+      'cursor': 'pointer',
+    });
 }
