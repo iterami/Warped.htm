@@ -60,7 +60,7 @@ function repo_drawlogic(){
                   }
               }
 
-              canvas_buffer.fillRect(
+              canvas.fillRect(
                 entity_entities[entity]['x'],
                 entity_entities[entity]['y'],
                 height,
