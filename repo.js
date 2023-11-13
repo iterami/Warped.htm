@@ -157,7 +157,7 @@ function repo_init(){
         + '<tr><td><input class=mini id=fixed-length step=any type=number><td>Fixed Length'
         + '<tr><td><input class=mini id=length-multiplier step=any type=number><td>Length Multiplier'
         + '<tr><td><input class=mini id=line-width step=any type=number><td>Line Width'
-        + '<tr><td><select id=mode><option value=both>Both</option><option value=lines>Lines</option><option value=rectangles>Rectangles</option></select><td>Mode'
+        + '<tr><td><select id=mode><option value=both>Both<option value=lines>Lines<option value=rectangles>Rectangles</select><td>Mode'
         + '<tr><td><input id=mouse-lock type=checkbox><td>Mouse Lock</table>',
       'title': 'Warped.htm',
     });
