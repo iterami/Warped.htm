@@ -137,7 +137,7 @@ function repo_init(){
         'mouse_x': 0,
         'mouse_y': 0,
       },
-      'info': '<input id=randomize type=button value=Randomize>',
+      'info': '<button id=randomize type=button>Randomize</button>',
       'mousebinds': {
         'mousedown': {},
         'mousemove': {},
