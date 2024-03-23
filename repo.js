@@ -2,9 +2,7 @@
 
 function load_data(){
     canvas_setproperties({
-      'properties': {
-        'lineWidth': core_storage_data['line-width'],
-      },
+      'lineWidth': core_storage_data['line-width'],
     });
 
     let loop_counter = core_storage_data['number-of-entities'] - 1;
@@ -37,9 +35,7 @@ function repo_drawlogic(){
       'todo': function(entity){
           if(core_storage_data['mode'] !== 'lines'){
               canvas_setproperties({
-                'properties': {
-                  'fillStyle': entity_entities[entity]['color'],
-                },
+                'fillStyle': entity_entities[entity]['color'],
               });
 
               let height = entity_entities[entity]['x'] - mouse_x;
