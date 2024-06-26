@@ -5,7 +5,7 @@ function load_data(){
       'lineWidth': core_storage_data['line-width'],
     });
 
-    let loop_counter = core_storage_data['number-of-entities'] - 1;
+    let loop_counter = Math.floor(core_storage_data['number-of-entities']) - 1;
     do{
         entity_create({
           'properties': {
@@ -148,7 +148,7 @@ function repo_init(){
         'mouse-lock': true,
         'number-of-entities': 100,
       },
-      'storage-menu': '<table><tr><td><input class=mini id=number-of-entities min=1 step=any type=number><td>Entities'
+      'storage-menu': '<table><tr><td><input class=mini id=number-of-entities min=1 step=1 type=number><td>Entities'
         + '<tr><td><input class=mini id=extra-length step=any type=number><td>Extra Length'
         + '<tr><td><input class=mini id=fixed-length step=any type=number><td>Fixed Length'
         + '<tr><td><input class=mini id=length-multiplier step=any type=number><td>Length Multiplier'
