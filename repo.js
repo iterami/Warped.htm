@@ -106,15 +106,16 @@ function repo_drawlogic(){
                 },
                 'style': 'stroke',
                 'vertices': [
-                  {
-                    'type': 'moveTo',
-                    'x': entity_entities[entity]['x'],
-                    'y': entity_entities[entity]['y'],
-                  },
-                  {
-                    'x': entity_entities[entity]['x'] + target_x + extra_x,
-                    'y': entity_entities[entity]['y'] + target_y + extra_y,
-                  },
+                  [
+                    'moveTo',
+                    entity_entities[entity]['x'],
+                    entity_entities[entity]['y'],
+                  ],
+                  [
+                    'lineTo',
+                    entity_entities[entity]['x'] + target_x + extra_x,
+                    entity_entities[entity]['y'] + target_y + extra_y,
+                  ],
                 ],
               });
           }
