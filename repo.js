@@ -162,6 +162,3 @@ function repo_init(){
       'cursor': 'pointer',
     });
 }
-
-function repo_logic(){
-}
