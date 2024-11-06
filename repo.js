@@ -136,8 +136,16 @@ function repo_init(){
       },
       'info': '<button id=randomize type=button>Randomize</button>',
       'mousebinds': {
-        'mousedown': {},
-        'mousemove': {},
+        'mousedown': {
+          'todo': canvas_draw,
+        },
+        'mousemove': {
+          'todo': function(){
+              if(core_storage_data['mouse-lock']){
+                  canvas_draw();
+              }
+          },
+        },
       },
       'reset': canvas_setmode,
       'storage': {
@@ -160,5 +168,6 @@ function repo_init(){
     });
     canvas_init({
       'cursor': 'pointer',
+      'interval': false,
     });
 }
