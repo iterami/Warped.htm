@@ -35,11 +35,11 @@ function repo_drawlogic(){
       'todo': function(entity){
           if(core_storage_data['mode'] !== 'lines'){
               canvas_setproperties({
-                'fillStyle': entity_entities[entity]['color'],
+                'fillStyle': entity['color'],
               });
 
-              let height = entity_entities[entity]['x'] - mouse_x;
-              let width = entity_entities[entity]['y'] - mouse_y;
+              let height = entity['x'] - mouse_x;
+              let width = entity['y'] - mouse_y;
               if(core_storage_data['fixed-length'] !== 0){
                   height = core_storage_data['fixed-length'];
                   width = core_storage_data['fixed-length'];
@@ -57,8 +57,8 @@ function repo_drawlogic(){
               }
 
               canvas.fillRect(
-                entity_entities[entity]['x'],
-                entity_entities[entity]['y'],
+                entity['x'],
+                entity['y'],
                 height,
                 width
               );
@@ -67,8 +67,8 @@ function repo_drawlogic(){
           if(core_storage_data['mode'] !== 'rectangles'){
               let extra_x = 0;
               let extra_y = 0;
-              let target_x = mouse_x - entity_entities[entity]['x'];
-              let target_y = mouse_y - entity_entities[entity]['y'];
+              let target_x = mouse_x - entity['x'];
+              let target_y = mouse_y - entity['y'];
 
               if(core_storage_data['fixed-length'] !== 0){
                   const length = Math.sqrt(
@@ -87,8 +87,8 @@ function repo_drawlogic(){
               }
 
               if(core_storage_data['extra-length'] !== 0){
-                  extra_x = mouse_x - entity_entities[entity]['x'];
-                  extra_y = mouse_y - entity_entities[entity]['y'];
+                  extra_x = mouse_x - entity['x'];
+                  extra_y = mouse_y - entity['y'];
 
                   const length = Math.sqrt(
                     extra_x * extra_x + extra_y * extra_y
@@ -102,19 +102,19 @@ function repo_drawlogic(){
 
               canvas_draw_path({
                 'properties': {
-                  'strokeStyle': entity_entities[entity]['color'],
+                  'strokeStyle': entity['color'],
                 },
                 'style': 'stroke',
                 'vertices': [
                   [
                     'moveTo',
-                    entity_entities[entity]['x'],
-                    entity_entities[entity]['y'],
+                    entity['x'],
+                    entity['y'],
                   ],
                   [
                     'lineTo',
-                    entity_entities[entity]['x'] + target_x + extra_x,
-                    entity_entities[entity]['y'] + target_y + extra_y,
+                    entity['x'] + target_x + extra_x,
+                    entity['y'] + target_y + extra_y,
                   ],
                 ],
               });
@@ -141,7 +141,8 @@ function repo_init(){
         },
         'mousemove': {
           'todo': function(){
-              if(core_storage_data['mouse-lock']){
+              if(core_storage_data['mouse-lock']
+                || core_mouse['down-0']){
                   canvas_draw();
               }
           },
