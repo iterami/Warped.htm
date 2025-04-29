@@ -127,7 +127,10 @@ function repo_init(){
     core_repo_init({
       'events': {
         'randomize': {
-          'onclick': core_repo_reset,
+          'onclick': function(){
+              canvas_setmode();
+              canvas_draw();
+          },
         },
       },
       'globals': {
@@ -148,7 +151,6 @@ function repo_init(){
           },
         },
       },
-      'reset': canvas_setmode,
       'storage': {
         'extra-length': 0,
         'fixed-length': 0,
