@@ -10,12 +10,8 @@ function load_data(){
         entity_create({
           'properties': {
             'color': '#' + core_random_hex(),
-            'x': core_random_integer({
-              'max': canvas_properties['width'],
-            }),
-            'y': core_random_integer({
-              'max': canvas_properties['height'],
-            }),
+            'x': core_random_integer(canvas_properties['width']),
+            'y': core_random_integer(canvas_properties['height']),
           },
         });
     }while(loop_counter--);
