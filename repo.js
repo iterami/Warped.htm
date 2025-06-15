@@ -2,26 +2,26 @@
 
 function load_data(){
     canvas_setproperties({
-      'lineWidth': core_storage_data['line-width'],
+      'lineWidth': core_storage_data.line_width,
     });
 
-    let loop_counter = Math.floor(core_storage_data['number-of-entities']) - 1;
+    let loop_counter = Math.floor(core_storage_data.number_of_entities) - 1;
     do{
         entity_create({
           'properties': {
             'color': '#' + core_random_hex(),
-            'x': core_random_integer(canvas_properties['width']),
-            'y': core_random_integer(canvas_properties['height']),
+            'x': core_random_integer(canvas_properties.width),
+            'y': core_random_integer(canvas_properties.height),
           },
         });
     }while(loop_counter--);
 }
 
 function repo_drawlogic(){
-    if(core_storage_data['pointer-lock']
+    if(core_storage_data.pointer_lock
       || core_pointer['down-0']){
-        pointer_x = core_pointer['x'];
-        pointer_y = core_pointer['y'];
+        pointer_x = core_pointer.x;
+        pointer_y = core_pointer.y;
     }
 
     entity_group_modify({
@@ -29,88 +29,88 @@ function repo_drawlogic(){
         'canvas',
       ],
       'todo': function(entity){
-          if(core_storage_data['mode'] !== 'lines'){
+          if(core_storage_data.mode !== 'lines'){
               canvas_setproperties({
-                'fillStyle': entity['color'],
+                'fillStyle': entity.color,
               });
 
-              let height = entity['x'] - pointer_x;
-              let width = entity['y'] - pointer_y;
-              if(core_storage_data['fixed-length'] !== 0){
-                  height = core_storage_data['fixed-length'];
-                  width = core_storage_data['fixed-length'];
+              let height = entity.x - pointer_x;
+              let width = entity.y - pointer_y;
+              if(core_storage_data.fixed_length !== 0){
+                  height = core_storage_data.fixed_length;
+                  width = core_storage_data.fixed_length;
 
               }else{
-                  if(core_storage_data['length-multiplier'] !== 1){
-                      height *= core_storage_data['length-multiplier'];
-                      width *= core_storage_data['length-multiplier'];
+                  if(core_storage_data.length_multiplier !== 1){
+                      height *= core_storage_data.length_multiplier;
+                      width *= core_storage_data.length_multiplier;
                   }
 
-                  if(core_storage_data['extra-length'] !== 0){
-                      height *= core_storage_data['extra-length'];
-                      width *= core_storage_data['extra-length'];
+                  if(core_storage_data.extra_length !== 0){
+                      height *= core_storage_data.extra_length;
+                      width *= core_storage_data.extra_length;
                   }
               }
 
               canvas.fillRect(
-                entity['x'],
-                entity['y'],
+                entity.x,
+                entity.y,
                 height,
                 width
               );
           }
 
-          if(core_storage_data['mode'] !== 'rectangles'){
+          if(core_storage_data.mode !== 'rectangles'){
               let extra_x = 0;
               let extra_y = 0;
-              let target_x = pointer_x - entity['x'];
-              let target_y = pointer_y - entity['y'];
+              let target_x = pointer_x - entity.x;
+              let target_y = pointer_y - entity.y;
 
-              if(core_storage_data['fixed-length'] !== 0){
+              if(core_storage_data.fixed_length !== 0){
                   const length = Math.sqrt(
                     target_x * target_x + target_y * target_y
                   );
 
                   target_x /= length;
-                  target_x *= core_storage_data['fixed-length'];
+                  target_x *= core_storage_data.fixed_length;
                   target_y /= length;
-                  target_y *= core_storage_data['fixed-length'];
+                  target_y *= core_storage_data.fixed_length;
               }
 
-              if(core_storage_data['length-multiplier'] !== 1){
-                  target_x *= core_storage_data['length-multiplier'];
-                  target_y *= core_storage_data['length-multiplier'];
+              if(core_storage_data.length_multiplier !== 1){
+                  target_x *= core_storage_data.length_multiplier;
+                  target_y *= core_storage_data.length_multiplier;
               }
 
-              if(core_storage_data['extra-length'] !== 0){
-                  extra_x = pointer_x - entity['x'];
-                  extra_y = pointer_y - entity['y'];
+              if(core_storage_data.extra_length !== 0){
+                  extra_x = pointer_x - entity.x;
+                  extra_y = pointer_y - entity.y;
 
                   const length = Math.sqrt(
                     extra_x * extra_x + extra_y * extra_y
                   );
 
                   extra_x /= length;
-                  extra_x *= core_storage_data['extra-length'];
+                  extra_x *= core_storage_data.extra_length;
                   extra_y /= length;
-                  extra_y *= core_storage_data['extra-length'];
+                  extra_y *= core_storage_data.extra_length;
               }
 
               canvas_draw_path({
                 'properties': {
-                  'strokeStyle': entity['color'],
+                  'strokeStyle': entity.color,
                 },
                 'style': 'stroke',
                 'vertices': [
                   [
                     'moveTo',
-                    entity['x'],
-                    entity['y'],
+                    entity.x,
+                    entity.y,
                   ],
                   [
                     'lineTo',
-                    entity['x'] + target_x + extra_x,
-                    entity['y'] + target_y + extra_y,
+                    entity.x + target_x + extra_x,
+                    entity.y + target_y + extra_y,
                   ],
                 ],
               });
@@ -140,29 +140,29 @@ function repo_init(){
         },
         'pointermove': {
           'todo': function(){
-              if(core_storage_data['pointer-lock']
-                || core_pointer['down-0']){
+              if(core_storage_data.pointer_lock
+                || core_pointer.down-0){
                   canvas_draw();
               }
           },
         },
       },
       'storage': {
-        'extra-length': 0,
-        'fixed-length': 0,
-        'length-multiplier': 1,
-        'line-width': 1,
+        'extra_length': 0,
+        'fixed_length': 0,
+        'length_multiplier': 1,
+        'line_width': 1,
         'mode': 'both',
-        'number-of-entities': 100,
-        'pointer-lock': true,
+        'number_of_entities': 100,
+        'pointer_lock': true,
       },
-      'storage-menu': '<table><tr><td><input class=mini id=number-of-entities min=1 step=1 type=number><td>Entities'
-        + '<tr><td><input class=mini id=extra-length step=any type=number><td>Extra Length'
-        + '<tr><td><input class=mini id=fixed-length step=any type=number><td>Fixed Length'
-        + '<tr><td><input class=mini id=length-multiplier step=any type=number><td>Length Multiplier'
-        + '<tr><td><input class=mini id=line-width step=any type=number><td>Line Width'
+      'storage-menu': '<table><tr><td><input class=mini id=number_of_entities min=1 step=1 type=number><td>Entities'
+        + '<tr><td><input class=mini id=extra_length step=any type=number><td>Extra Length'
+        + '<tr><td><input class=mini id=fixed_length step=any type=number><td>Fixed Length'
+        + '<tr><td><input class=mini id=length_multiplier step=any type=number><td>Length Multiplier'
+        + '<tr><td><input class=mini id=line_width step=any type=number><td>Line Width'
         + '<tr><td><select id=mode><option value=both>Both<option value=lines>Lines<option value=rectangles>Rectangles</select><td>Mode'
-        + '<tr><td><input id=pointer-lock type=checkbox><td>Pointer Lock</table>',
+        + '<tr><td><input id=pointer_lock type=checkbox><td>Pointer Lock</table>',
       'title': 'Warped.htm',
     });
     canvas_init({
