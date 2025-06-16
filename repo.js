@@ -141,7 +141,7 @@ function repo_init(){
         'pointermove': {
           'todo': function(){
               if(core_storage_data.pointer_lock
-                || core_pointer.down-0){
+                || core_pointer['down-0']){
                   canvas_draw();
               }
           },
