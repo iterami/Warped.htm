@@ -156,7 +156,7 @@ function repo_init(){
         'number_of_entities': 100,
         'pointer_lock': true,
       },
-      'storage-menu': '<table><tr><td><input class=mini id=number_of_entities min=1 step=1 type=number><td>Entities'
+      'storage_menu': '<table><tr><td><input class=mini id=number_of_entities min=1 step=1 type=number><td>Entities'
         + '<tr><td><input class=mini id=extra_length step=any type=number><td>Extra Length'
         + '<tr><td><input class=mini id=fixed_length step=any type=number><td>Fixed Length'
         + '<tr><td><input class=mini id=length_multiplier step=any type=number><td>Length Multiplier'
