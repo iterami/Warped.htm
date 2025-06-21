@@ -19,7 +19,7 @@ function load_data(){
 
 function repo_drawlogic(){
     if(core_storage_data.pointer_lock
-      || core_pointer['down-0']){
+      || core_pointer.down_0){
         pointer_x = core_pointer.x;
         pointer_y = core_pointer.y;
     }
@@ -141,7 +141,7 @@ function repo_init(){
         'pointermove': {
           'todo': function(){
               if(core_storage_data.pointer_lock
-                || core_pointer['down-0']){
+                || core_pointer.down_0){
                   canvas_draw();
               }
           },
