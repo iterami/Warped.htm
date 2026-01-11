@@ -1,22 +1,5 @@
 'use strict';
 
-function load_data(){
-    canvas_setproperties({
-      'lineWidth': core_storage_data.line_width,
-    });
-
-    let loop_counter = Math.floor(core_storage_data.number_of_entities) - 1;
-    do{
-        entity_create({
-          'properties': {
-            'color': '#' + core_random_hex(),
-            'x': core_random_integer(canvas_properties.width),
-            'y': core_random_integer(canvas_properties.height),
-          },
-        });
-    }while(loop_counter--);
-}
-
 function repo_drawlogic(){
     if(core_storage_data.pointer_lock
       || core_pointer.down_0){
@@ -169,4 +152,21 @@ function repo_init(){
       'cursor': 'pointer',
       'interval': false,
     });
+}
+
+function repo_load(){
+    canvas_setproperties({
+      'lineWidth': core_storage_data.line_width,
+    });
+
+    let loop_counter = Math.floor(core_storage_data.number_of_entities) - 1;
+    do{
+        entity_create({
+          'properties': {
+            'color': '#' + core_random_hex(),
+            'x': core_random_integer(canvas_properties.width),
+            'y': core_random_integer(canvas_properties.height),
+          },
+        });
+    }while(loop_counter--);
 }
