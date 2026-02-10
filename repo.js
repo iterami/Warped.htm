@@ -1,5 +1,94 @@
 'use strict';
 
+function draw_shapes(entity){
+    if(core_storage_data.mode !== 'lines'){
+        canvas_setproperties({
+          'fillStyle': entity.color,
+        });
+
+        let height = entity.x - pointer_x;
+        let width = entity.y - pointer_y;
+        if(core_storage_data.fixed_length !== 0){
+            height = core_storage_data.fixed_length;
+            width = core_storage_data.fixed_length;
+
+        }else{
+            if(core_storage_data.length_multiplier !== 1){
+                height *= core_storage_data.length_multiplier;
+                width *= core_storage_data.length_multiplier;
+            }
+
+            if(core_storage_data.extra_length !== 0){
+                height *= core_storage_data.extra_length;
+                width *= core_storage_data.extra_length;
+            }
+        }
+
+        canvas.fillRect(
+          entity.x,
+          entity.y,
+          height,
+          width
+        );
+    }
+
+    if(core_storage_data.mode !== 'rectangles'){
+        let extra_x = 0;
+        let extra_y = 0;
+        let target_x = pointer_x - entity.x;
+        let target_y = pointer_y - entity.y;
+
+        if(core_storage_data.fixed_length !== 0){
+            const length = Math.sqrt(
+              target_x * target_x + target_y * target_y
+            );
+
+            target_x /= length;
+            target_x *= core_storage_data.fixed_length;
+            target_y /= length;
+            target_y *= core_storage_data.fixed_length;
+        }
+
+        if(core_storage_data.length_multiplier !== 1){
+            target_x *= core_storage_data.length_multiplier;
+            target_y *= core_storage_data.length_multiplier;
+        }
+
+        if(core_storage_data.extra_length !== 0){
+            extra_x = pointer_x - entity.x;
+            extra_y = pointer_y - entity.y;
+
+            const length = Math.sqrt(
+              extra_x * extra_x + extra_y * extra_y
+            );
+
+            extra_x /= length;
+            extra_x *= core_storage_data.extra_length;
+            extra_y /= length;
+            extra_y *= core_storage_data.extra_length;
+        }
+
+        canvas_draw_path({
+          'properties': {
+            'strokeStyle': entity.color,
+          },
+          'style': 'stroke',
+          'vertices': [
+            [
+              'moveTo',
+              entity.x,
+              entity.y,
+            ],
+            [
+              'lineTo',
+              entity.x + target_x + extra_x,
+              entity.y + target_y + extra_y,
+            ],
+          ],
+        });
+    }
+}
+
 function repo_drawlogic(){
     if(core_storage_data.pointer_lock
       || core_pointer.down_0){
@@ -11,94 +100,7 @@ function repo_drawlogic(){
       'groups': [
         'canvas',
       ],
-      'todo': function(entity){
-          if(core_storage_data.mode !== 'lines'){
-              canvas_setproperties({
-                'fillStyle': entity.color,
-              });
-
-              let height = entity.x - pointer_x;
-              let width = entity.y - pointer_y;
-              if(core_storage_data.fixed_length !== 0){
-                  height = core_storage_data.fixed_length;
-                  width = core_storage_data.fixed_length;
-
-              }else{
-                  if(core_storage_data.length_multiplier !== 1){
-                      height *= core_storage_data.length_multiplier;
-                      width *= core_storage_data.length_multiplier;
-                  }
-
-                  if(core_storage_data.extra_length !== 0){
-                      height *= core_storage_data.extra_length;
-                      width *= core_storage_data.extra_length;
-                  }
-              }
-
-              canvas.fillRect(
-                entity.x,
-                entity.y,
-                height,
-                width
-              );
-          }
-
-          if(core_storage_data.mode !== 'rectangles'){
-              let extra_x = 0;
-              let extra_y = 0;
-              let target_x = pointer_x - entity.x;
-              let target_y = pointer_y - entity.y;
-
-              if(core_storage_data.fixed_length !== 0){
-                  const length = Math.sqrt(
-                    target_x * target_x + target_y * target_y
-                  );
-
-                  target_x /= length;
-                  target_x *= core_storage_data.fixed_length;
-                  target_y /= length;
-                  target_y *= core_storage_data.fixed_length;
-              }
-
-              if(core_storage_data.length_multiplier !== 1){
-                  target_x *= core_storage_data.length_multiplier;
-                  target_y *= core_storage_data.length_multiplier;
-              }
-
-              if(core_storage_data.extra_length !== 0){
-                  extra_x = pointer_x - entity.x;
-                  extra_y = pointer_y - entity.y;
-
-                  const length = Math.sqrt(
-                    extra_x * extra_x + extra_y * extra_y
-                  );
-
-                  extra_x /= length;
-                  extra_x *= core_storage_data.extra_length;
-                  extra_y /= length;
-                  extra_y *= core_storage_data.extra_length;
-              }
-
-              canvas_draw_path({
-                'properties': {
-                  'strokeStyle': entity.color,
-                },
-                'style': 'stroke',
-                'vertices': [
-                  [
-                    'moveTo',
-                    entity.x,
-                    entity.y,
-                  ],
-                  [
-                    'lineTo',
-                    entity.x + target_x + extra_x,
-                    entity.y + target_y + extra_y,
-                  ],
-                ],
-              });
-          }
-      },
+      'todo': draw_shapes,
     });
 }
 
