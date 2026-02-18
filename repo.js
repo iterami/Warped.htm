@@ -118,7 +118,7 @@ function repo_init(){
         'pointer_x': 0,
         'pointer_y': 0,
       },
-      'info': '<button id=randomize type=button>Randomize</button>',
+      'info': '<button class=medium id=randomize type=button>Randomize</button>',
       'pointerbinds': {
         'pointerdown': {
           'todo': canvas_draw,
