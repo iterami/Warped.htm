@@ -161,8 +161,7 @@ function repo_load(){
       'lineWidth': core_storage_data.line_width,
     });
 
-    let loop_counter = Math.floor(core_storage_data.number_of_entities) - 1;
-    do{
+    for(let i = 0; i < core_storage_data.number_of_entities; i++){
         entity_create({
           'properties': {
             'color': '#' + core_random_hex(),
@@ -170,5 +169,5 @@ function repo_load(){
             'y': core_random_integer(canvas_properties.height),
           },
         });
-    }while(loop_counter--);
+    }
 }
