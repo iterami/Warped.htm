@@ -147,7 +147,7 @@ function repo_init(){
         + '<tr><td><input class=mini id=length_multiplier step=any type=number><td>Length Multiplier'
         + '<tr><td><input class=mini id=line_width step=any type=number><td>Line Width'
         + '<tr><td><select id=mode><option value=both>Both<option value=lines>Lines<option value=rectangles>Rectangles</select><td>Mode'
-        + '<tr><td><input id=pointer_lock type=checkbox><td>Pointer Lock</table>',
+        + '<tr><td class=right><input id=pointer_lock type=checkbox><td><label for=pointer_lock>Pointer Lock</label></table>',
       'title': 'Warped.htm',
     });
     canvas_init({
