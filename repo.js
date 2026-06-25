@@ -39,10 +39,7 @@ function draw_shapes(entity){
         let target_y = pointer_y - entity.y;
 
         if(core_storage_data.fixed_length !== 0){
-            const length = Math.sqrt(
-              target_x * target_x + target_y * target_y
-            );
-
+            const length = Math.hypot(target_x, target_y);
             target_x /= length;
             target_x *= core_storage_data.fixed_length;
             target_y /= length;
@@ -58,10 +55,7 @@ function draw_shapes(entity){
             extra_x = pointer_x - entity.x;
             extra_y = pointer_y - entity.y;
 
-            const length = Math.sqrt(
-              extra_x * extra_x + extra_y * extra_y
-            );
-
+            const length = Math.hypot(extra_x, extra_y);
             extra_x /= length;
             extra_x *= core_storage_data.extra_length;
             extra_y /= length;
