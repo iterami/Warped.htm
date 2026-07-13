@@ -91,9 +91,7 @@ function repo_drawlogic(){
     }
 
     entity_group_modify({
-      'groups': [
-        'canvas',
-      ],
+      'groups': ['canvas'],
       'todo': draw_shapes,
     });
 }
@@ -114,16 +112,12 @@ function repo_init(){
       },
       'info': '<button class=medium id=randomize type=button>Randomize</button>',
       'pointerbinds': {
-        'pointerdown': {
-          'todo': canvas_draw,
-        },
-        'pointermove': {
-          'todo': function(){
-              if(core_storage_data.pointer_lock
-                || core_pointer.down_0){
-                  canvas_draw();
-              }
-          },
+        'pointerdown': canvas_draw,
+        'pointermove': function(){
+            if(core_storage_data.pointer_lock
+              || core_pointer.down_0){
+                canvas_draw();
+            }
         },
       },
       'storage': {
